@@ -23,6 +23,13 @@
     crossorigin="anonymous"></script>
 
   <!-- Other libraries go here -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
   <!-- Link to styles of your own -->
   <link rel="stylesheet" href="./styles/landingStyle.css">
@@ -65,7 +72,13 @@
   </nav>
 
   <!-- Bootstrap Login Form -->
-  <div class="container mt-5">
+
+  <div class="container">
+    <h1>Log in page!</h1>
+</div>
+<div id="firebaseui-auth-container"></div>
+<div id="loader">Loading...</div>
+  <!-- <div class="container mt-5">
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="card shadow-lg p-4">
@@ -87,7 +100,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!--Footer/Call To Action Goes Here-->
   <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
@@ -113,6 +126,11 @@
   <!---------------------------------------------->
 
   <!-- Link to scripts of your own -->
+  <script src="./scripts/firebaseAPI_TEAM26.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="./scripts/authentication.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
   <!-- <script src="./scripts/script.js"></script> -->
 
 </body>
