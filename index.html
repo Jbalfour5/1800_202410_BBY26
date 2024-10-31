@@ -22,6 +22,13 @@
     crossorigin="anonymous"></script>
 
   <!-- Other libraries go here -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
   <!-- Link to styles of your own -->
   <link rel="stylesheet" href="./styles/landingStyle.css"> 
@@ -32,35 +39,10 @@
 
 
 
-  <!--Navbar-->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">UrbanEx</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="login.html">Login/SignUp</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#features">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#aboutUs">About us</a>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </nav>
+  <!-- Placeholder for navBar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow" id="navbarPlaceholder"></nav>
+
+  
   
    <!--- Hero -->
    <div class="px-3 pt-2 my-5 text-center border-bottom">
@@ -179,9 +161,13 @@
 
   <!-- Link to scripts of your own -->
   <script src="./scripts/firebaseAPI_TEAM26.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="./scripts/authentication.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
   <!-- <script src="./scripts/script.js"></script> -->
-
-  <script src="loadHeader.js"></script>
+  <script src="./scripts/skeleton.js"></script>
+  <script src="./scripts/firebaseAPI_BBY26.js"></script>
 
 </body>
 
