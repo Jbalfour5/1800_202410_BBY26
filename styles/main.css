@@ -1,0 +1,42 @@
+.createPost{
+    position: fixed;
+    bottom: 30px; 
+    right: 1px;
+    width: 150px; 
+    height: 100px; 
+    padding: 20px; 
+    z-index: 1000; 
+}
+
+#postForm {
+    position: fixed; 
+    bottom: -700px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    transition: bottom 0.5s ease; 
+    visibility: hidden; 
+    opacity: 0; 
+    height: 700px;
+    min-height: 500px;
+    overflow-y: auto;
+}
+#postForm.show {
+    bottom: 75px; 
+    visibility: visible; 
+    opacity: 1; 
+}
+
+#postImage img {
+    position: relative;
+    width: 500px; 
+    height: auto; 
+    outline: 2px solid rgb(0, 0, 0);
+    overflow: hidden;
+}
+#postImage button {
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 1; 
+}
