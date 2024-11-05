@@ -1,6 +1,7 @@
 const selectImageButton = document.getElementById('selectImageButton');
 const imageInput = document.getElementById('imageInput');
 const selectedImage = document.getElementById('selectedImage');
+let imageDataUrl;
 
 const targetWidth = 500; 
 const targetHeight = 300; 
@@ -30,6 +31,7 @@ imageInput.addEventListener('change', function(event) {
                 ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
 
                 selectedImage.src = canvas.toDataURL('image/png');
+                imageDataUrl = selectedImage.src;
             };
         };
         reader.readAsDataURL(file); 
@@ -49,7 +51,7 @@ submitPostButton.addEventListener('click', () => {
     const post = {
         title: postTitle,
         description: postDesc,
-        image: file,
+        image: imageDataUrl,
         createdAt: new Date(),
     };
 
@@ -57,11 +59,7 @@ submitPostButton.addEventListener('click', () => {
     db.collection('posts').add(post)
     .then((docRef) => {
         console.log("Post written with ID: ", docRef.id);
-        $('#submitPostButton').click(function() {
-            $('#postForm').addClass('hide');
-            $('#postForm').removeClass('show'); 
-        
-        });
+      
     })
     .catch((error) => {
         console.error("Error adding post: ", error);

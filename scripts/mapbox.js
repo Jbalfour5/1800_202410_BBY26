@@ -35,6 +35,24 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiamJhbGZvdXI1IiwiYSI6ImNtMnV0MnZxbzA1OTEya29iZ
         console.error('Geolocation is not supported by this browser.');
         map.setCenter([-74.5, 40]); 
     }
+    
+    const searchBox = document.querySelector('mapbox-search-box');
+
+if (searchBox) {
+    // Event listener for when a search result is selected
+    searchBox.addEventListener('result', (event) => {
+        const result = event.detail.result; // Get the search result
+        if (result) {
+            // Fly to the selected result's coordinates
+            map.flyTo({
+                center: result.geometry.coordinates,
+                zoom: 15,
+                essential: true // Animation is essential with respect to prefers-reduced-motion
+            });
+        }
+    });
+}
+
 
  
     
