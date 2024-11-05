@@ -53,8 +53,8 @@
         unsure of the safest path, our platform ensures that youll always have the current safety information, giving
         you peace of mind as you explore. Navigate with confidence knowing that youre in control of your safety.</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-        <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3">Continue to Login</button>
-        <button type="button" class="btn btn-outline-secondary btn-lg px-4">Dont have an account?</button>
+        <a type="button" class="btn btn-primary btn-lg px-4 me-sm-3" href="login.html">Continue to Login</a>
+        <a type="button" class="btn btn-outline-secondary btn-lg px-4" href="signup.html">Dont have an account?</a>
       </div>
     </div>
     <div class="overflow-hidden" style="max-height: 30vh;">
@@ -68,7 +68,6 @@
   <div id="features">
     <div class="container px-4 py-5" id="custom-cards">
       <h2 class="pb-2 border-bottom">Get to know our features</h2>
-
       <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
         <div class="col">
           <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('/images/featuresMap.png');">
@@ -147,15 +146,10 @@
   <!---------------------------------------------->
 
   <!-- Link to scripts of your own -->
-  <script src="./scripts/firebaseAPI_TEAM26.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="./scripts/authentication.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
-  <!-- <script src="./scripts/script.js"></script> -->
-  <script src="./scripts/skeleton.js"></script>
-  <script src="./scripts/firebaseAPI_BBY26.js"></script>
-
+  <script type="module" src="./scripts/firebaseAPI_TEAM26.js"></script>
+  <script type="module" src="./scripts/authentication.js"></script>
+  <script src="/scripts/skeleton.js"></script>
+  <script src="/scripts/passwordVisibility.js"></script>
 </body>
 
 </html>

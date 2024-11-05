@@ -46,17 +46,33 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="card shadow-lg p-4">
-          <h2 class="text-center">Log in to UrbanEx</h2>
+          <h2 class="text-center">Sign up to UrbanEx</h2>
           <form id="login-form">
             <div class="form-group mb-3">
-              <label for="email">Email address</label>
+              <label for="emailInput">Email address</label>
               <input type="email" class="form-control" id="emailInput" required>
             </div>
-            <div class="form-group mb-3">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" id="passwordInput" required>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Log In</button>
+            <div class="row">
+              <div class="form-group mb-3 w-50">
+                <label for="firstNameInput">First name</label>
+                <input type="text" class="form-control" id="firstNameInput" required>
+              </div>
+              <div class="form-group mb-3 w-50">
+                <label for="lastNameInput">Last name</label>
+                <input type="text" class="form-control" id="lastNameInput" required> 
+              </div>
+              <div class="form-group mb-3">
+                <label for="passwordInput">Password</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="passwordInput" required>
+                  <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y me-2" 
+                  onclick="togglePassword()" style="z-index: 1; background: none; border: none;">
+                  <img src="images/passwordvisible.png" id="toggleIcon" alt="Show Password" style="width: 24px; height: 24px;">
+                 </button>
+                </div>
+              </div>
+          </div>
+            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
             <div class="text-center mt-3">
               <button type="button" class="btn btn-secondary" onclick="signInWithGoogle()">Sign in with Google</button>
             </div>
@@ -77,9 +93,11 @@
 
   <!-- Link to scripts of your own -->
   <script src="./scripts/firebaseAPI_TEAM26.js"></script>
-  <script src="./scripts/loginUser.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="./scripts/signupUser.js" type="module"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
   <script src="/scripts/skeleton.js"></script>
   <script src="/scripts/passwordVisibility.js"></script>
 </body>
-
 </html>
