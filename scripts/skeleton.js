@@ -10,7 +10,7 @@ function loadSkeleton() {
             // User is signed in.
             // Do something for the user here.
             console.log($('#navbarPlaceholder').load('./navbarAfterLogin.html'));
-            console.log($('#footerPlaceholder').load('./bottomNavbar.html'));
+            console.log($('#bottomNavPlaceholder').load('./bottomNavbar.html'));
         } else {
             // No user is signed in.
             console.log($('#navbarPlaceholder').load('./navbarBeforeLogin.html'));
