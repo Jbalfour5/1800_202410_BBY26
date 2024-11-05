@@ -46,37 +46,11 @@
 
   <!--Content-->
   <div class="container text-center mt-5">
-    <p>Latest news in your radius would go here regarding safety.</p>
+    <p>Your profile setting and such would go here!</p>
     <p>Nothing to Display yet!</p>
   
   </div>
 
-  <div class="createPost container ">
-    <button type="button" class="btn btn-primary" id="createPostButton">Create Post</button>
-  </div>
-
-  <!--Form to create a post-->
-  <div class="container shadow-lg" id="postForm">
-    <h3 class="text-center mt-4">Creating a post</h3>
-    <form>
-      <div class="container form-group p-2 mt-4 text-center" id="postImage">
-        <img class="img-fluid shadow-lg  opacity-50" id="selectedImage" src="/images/noImage.png">
-        <input type="file" id="imageInput" accept="image/*" style="display: none;">
-        <button type="button" class="btn btn-primary" id="selectImageButton">Select post image</button>
-      </div>
-      <div class="form-group">
-        <label for="postTitle">Post Title</label>
-        <input type="text" class="form-control" id="postTitle">
-      </div>
-      <div class="mb-3">
-        <label for="postDesc" class="form-label">Post Description </label>
-        <textarea class="form-control" id="postDesc" rows="3"></textarea>
-      </div>
-      <div class="container text-end">
-        <button type="button" class="btn btn-primary" id="submitPostButton">Submit Post</button>
-      </div>
-    </form>
-  </div>
 
   <!-- bottomNavbar -->
   <nav class="nav shadow-lg" id="bottomNavPlaceholder"></nav>
@@ -96,23 +70,7 @@
     <!-- <script src="./scripts/script.js"></script> -->
     <script src="/scripts/skeleton.js"></script>
     <script src="/scripts/activeNav.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-        $('#createPostButton').click(function() {
-            $('#postForm').addClass('show'); 
-            $('#postForm').removeClass('hide'); 
-        });
-        $('#submitPostButton').click(function() {
-            $('#postForm').addClass('hide');
-            $('#postForm').removeClass('show'); 
-        
-        });
-    });
-    
-    
-    </script>
-    <script src="/scripts/postToDatabase.js"></script>
+
 
 </body>
 

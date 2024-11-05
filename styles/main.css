@@ -19,11 +19,18 @@
     height: 700px;
     min-height: 500px;
     overflow-y: auto;
+    z-index: 1001;
 }
 #postForm.show {
     bottom: 75px; 
     visibility: visible; 
     opacity: 1; 
+}
+
+#postForm.hide {
+    bottom: -700px;
+    visibility: hidden;
+    opacity: 100;
 }
 
 #postImage img {
