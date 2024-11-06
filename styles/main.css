@@ -1,49 +1,55 @@
-.createPost{
+.createPost {
     position: fixed;
-    bottom: 30px; 
+    bottom: 30px;
     right: 1px;
-    width: 150px; 
-    height: 100px; 
-    padding: 20px; 
-    z-index: 1000; 
+    width: 150px;
+    height: 100px;
+    padding: 20px;
+    z-index: 1000;
 }
 
 #postForm {
-    position: fixed; 
-    bottom: -700px; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    transition: bottom 0.5s ease; 
-    visibility: hidden; 
-    opacity: 0; 
-    height: 700px;
-    min-height: 500px;
+    position: fixed;
+    top: 15vh;
+    left: 50%;
+    transform: translateX(-50%);
+    visibility: hidden;
+    opacity: 0;
+    height: 65vh;
+    width: 80vw; 
+    max-width: 700px; 
+    padding: 10px;
     overflow-y: auto;
-    z-index: 1001;
+    z-index: 1050;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
+
 #postForm.show {
-    bottom: 75px; 
-    visibility: visible; 
-    opacity: 1; 
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.3s ease;
 }
 
 #postForm.hide {
-    bottom: -700px;
     visibility: hidden;
-    opacity: 100;
+    opacity: 0;
+    transition: all 0.3s ease;
 }
 
 #postImage img {
     position: relative;
-    width: 500px; 
-    height: auto; 
+    width: 100%; 
+    height: auto;
     outline: 2px solid rgb(0, 0, 0);
     overflow: hidden;
 }
+
 #postImage button {
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    z-index: 1; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }

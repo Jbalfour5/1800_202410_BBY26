@@ -21,17 +21,3 @@
       })
     }
   loginForm.addEventListener('submit', SignInUser);
-
-   
-        const logoutButton = document.getElementById("logoutButton");
-        
-        logoutButton.addEventListener("click", function() {
-            firebase.auth().signOut().then(function() {
-                console.log("User signed out.");
-              
-                window.location.href = "login.html";
-            }).catch(function(error) {
-                console.error("Error signing out: ", error);
-            });
-        });
-      ;

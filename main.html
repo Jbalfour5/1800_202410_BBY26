@@ -45,18 +45,18 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow" id="navbarPlaceholder"></nav>
 
   <!--Content-->
-  <div class="container text-center mt-5">
-    <p>Latest news in your radius would go here regarding safety.</p>
-    <p>Nothing to Display yet!</p>
-  
-  </div>
-
   <div class="createPost container ">
     <button type="button" class="btn btn-primary" id="createPostButton">Create Post</button>
   </div>
 
+  <div class="container">
+    <div class="d-flex flex-wrap postContainer mt-4 justify-content-around">
+        </div>
+    </div>
+</div>
+
   <!--Form to create a post-->
-  <div class="container shadow-lg" id="postForm">
+  <div class="shadow-lg" id="postForm">
     <h3 class="text-center mt-4">Creating a post</h3>
     <form>
       <div class="container form-group p-2 mt-4 text-center" id="postImage">
@@ -109,10 +109,9 @@
         
         });
     });
-    
-    
     </script>
     <script src="/scripts/postToDatabase.js"></script>
+    <script src="/scripts/main.js"></script>
 
 
 </body>
