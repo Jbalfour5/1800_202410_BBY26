@@ -44,6 +44,9 @@ submitPostButton.addEventListener('click', () => {
     const postTitle = document.getElementById('postTitle').value;
     const postDesc = document.getElementById('postDesc').value;
 
+    const postLatitude = document.getElementById('postLatitude').value;
+    const postLongitude = document.getElementById('postLongitude').value;
+
     // Debugging logs
     console.log("Title:", postTitle);
     console.log("Description:", postDesc);
@@ -52,8 +55,11 @@ submitPostButton.addEventListener('click', () => {
         title: postTitle,
         description: postDesc,
         image: imageDataUrl,
+        latitude: postLatitude,  
+        longitude: postLongitude, 
         createdAt: new Date(),
     };
+
 
     const db = firebase.firestore(); 
     db.collection('posts').add(post)
