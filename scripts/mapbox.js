@@ -91,3 +91,23 @@ map.on('click', function (e) {
         console.log('Selected location:', lat, lng);
     }
 });
+
+//convert longitude and latitude to address
+function getAddressFromCoordinates(latitude, longitude) {
+    const accessToken = 'pk.eyJ1IjoiamJhbGZvdXI1IiwiYSI6ImNtMnV0MnZxbzA1OTEya29iZG95NDgxaHgifQ.48MC1AtpUWyZww1hh6s7Iw';
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${accessToken}`;
+
+    return fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.features && data.features.length > 0) {
+                return data.features[0].place_name; 
+            } else {
+                return 'Address not found';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching address:', error);
+            return 'Error fetching address';
+        });
+}

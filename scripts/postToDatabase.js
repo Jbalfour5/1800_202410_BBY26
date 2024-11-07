@@ -40,12 +40,14 @@ imageInput.addEventListener('change', function(event) {
 
 const submitPostButton = document.getElementById('submitPostButton');
 
-submitPostButton.addEventListener('click', () => {
+submitPostButton.addEventListener('click', async () => {
     const postTitle = document.getElementById('postTitle').value;
     const postDesc = document.getElementById('postDesc').value;
 
     const postLatitude = document.getElementById('postLatitude').value;
     const postLongitude = document.getElementById('postLongitude').value;
+
+    const address = await getAddressFromCoordinates(postLatitude, postLongitude);
 
     // Debugging logs
     console.log("Title:", postTitle);
@@ -55,8 +57,7 @@ submitPostButton.addEventListener('click', () => {
         title: postTitle,
         description: postDesc,
         image: imageDataUrl,
-        latitude: postLatitude,  
-        longitude: postLongitude, 
+        address: address, 
         createdAt: new Date(),
     };
 
