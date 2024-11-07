@@ -52,6 +52,8 @@ submitPostButton.addEventListener('click', async () => {
     // Debugging logs
     console.log("Title:", postTitle);
     console.log("Description:", postDesc);
+    console.log("Image:", imageDataUrl);
+    console.log("Adress:", address);
 
     const post = {
         title: postTitle,
@@ -66,6 +68,7 @@ submitPostButton.addEventListener('click', async () => {
     db.collection('posts').add(post)
     .then((docRef) => {
         console.log("Post written with ID: ", docRef.id);
+        window.location.reload();
       
     })
     .catch((error) => {
