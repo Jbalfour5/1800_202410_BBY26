@@ -1,7 +1,6 @@
 function displayPosts() {
   const postContainer = document.querySelector('.postContainer'); 
 
-  // Fetch posts from the "posts" collection in Firestore
   db.collection("posts").get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
           const postData = doc.data();
@@ -32,14 +31,12 @@ function displayPosts() {
           viewMoreButton.textContent = 'View More';
           viewMoreButton.href = `postDetails.html?id=${doc.id}`;
 
-          // Append all elements to form the card structure
           cardBody.appendChild(cardTitle);
           cardBody.appendChild(cardText);
-          cardBody.appendChild(viewMoreButton); // Append the button here
+          cardBody.appendChild(viewMoreButton); 
           card.appendChild(img);
           card.appendChild(cardBody);
           
-          // Append the card to the main container
           postContainer.appendChild(card);
       });
   }).catch((error) => {

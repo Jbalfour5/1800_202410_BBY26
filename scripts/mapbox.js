@@ -36,21 +36,11 @@ if (navigator.geolocation) {
     map.setCenter([-74.5, 40]);
 }
 
-const searchBox = document.querySelector('mapbox-search-box');
-if (searchBox) {
-
-    searchBox.addEventListener('result', (event) => {
-        const result = event.detail.result; 
-        if (result) {
-        
-            map.flyTo({
-                center: result.geometry.coordinates,
-                zoom: 15,
-                essential: true
-            });
-        }
-    });
-}
+const geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl
+});
+map.addControl(geocoder, 'top-left'); // Position it at the top left (or change as needed)
 
 const createPostButton = document.getElementById('createPostButton');
 createPostButton.addEventListener('click', function () {
