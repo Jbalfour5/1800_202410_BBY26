@@ -49,46 +49,17 @@
 
   <!-- Placeholder for navBar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow" id="navbarPlaceholder"></nav>
+  <br>
 
-  <!--Content-->
-  <div class="createPost container ">
-    <button type="button" class="btn btn-primary" id="createPostButton">Create Post</button>
-  </div>
-
-  <div class="container">
-    <div class="d-flex flex-wrap postContainer mt-4 justify-content-around">
+  <div class="card text-center">
+    <div class="card-header">
+      Report received successfully!
     </div>
-  </div>
-  </div>
-
-  <!--Form to create a post-->
-  <div class="shadow-lg" id="postForm">
-    <h3 class="text-center mt-4">Creating a post</h3>
-    <form>
-      <div class="container form-group p-2 mt-4 text-center" id="postImage">
-        <img class="img-fluid shadow-lg  opacity-50" id="selectedImage" src="/images/noImage.png">
-        <input type="file" id="imageInput" accept="image/*" style="display: none;">
-        <button type="button" class="btn btn-primary" id="selectImageButton">Select post image</button>
-      </div>
-      <div class="form-group">
-        <label for="postTitle">Post Title</label>
-        <input type="text" class="form-control" id="postTitle">
-      </div>
-      <div class="mb-3">
-        <label for="postDesc" class="form-label">Post Description </label>
-        <textarea class="form-control" id="postDesc" rows="3"></textarea>
-      </div>
-      <p class="fw-bold">Enter Location</p>
-      <div id="map" style="width: 100%; height: 400px; margin-bottom: 10px;"></div>
-      <input type="hidden" id="postLatitude" name="latitude">
-      <input type="hidden" id="postLongitude" name="longitude">
-      <div class="container text-end">
-        <button type="button" class="btn btn-primary" id="submitPostButton">Submit Post</button>
-      </div>
-    </form>
-  </div>
-
-
+    <div class="card-body">
+      <h5 class="card-title">Thanks for submitting your report!</h5>
+      <a href="report.html" class="btn btn-primary">Add another report!</a>
+    </div>
+</div>
 
   <!-- bottomNavbar -->
   <nav class="nav shadow-lg" id="bottomNavPlaceholder"></nav>
@@ -102,7 +73,7 @@
   <!-- Link to scripts of your own -->
   <script src="./scripts/firebaseAPI_TEAM26.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="./scripts/authentication.js"></script>
+  <!-- <script src="./scripts/authentication.js"></script> -->
   <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
   <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
   <!-- <script src="./scripts/script.js"></script> -->
@@ -111,13 +82,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function () {
-      $('#createPostButton').click(function () {
-        $('#postForm').addClass('show');
-        $('#postForm').removeClass('hide');
+      $('#createReportButton').click(function () {
+        $('#reportForm').addClass('show');
+        $('#reportForm').removeClass('hide');
       });
-      $('#submitPostButton').click(function () {
-        $('#postForm').addClass('hide');
-        $('#postForm').removeClass('show');
+      $('#submitReportButton').click(function () {
+        $('#reportForm').addClass('hide');
+        $('#reportForm').removeClass('show');
 
       });
     });
@@ -125,6 +96,9 @@
   <script src="/scripts/postToDatabase.js"></script>
   <script src="/scripts/main.js"></script>
   <script src="/scripts/mapbox.js"></script>
+  <script src="/scripts/report.js"></script>
+  <script src="/scripts/reportToDatabase.js"></script>
+
 
 </body>
 

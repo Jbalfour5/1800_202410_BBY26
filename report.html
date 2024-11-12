@@ -49,46 +49,106 @@
 
   <!-- Placeholder for navBar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow" id="navbarPlaceholder"></nav>
+  <br>
 
-  <!--Content-->
-  <div class="createPost container ">
-    <button type="button" class="btn btn-primary" id="createPostButton">Create Post</button>
-  </div>
+  <!--Report Form-->
 
   <div class="container">
-    <div class="d-flex flex-wrap postContainer mt-4 justify-content-around">
-    </div>
-  </div>
-  </div>
-
-  <!--Form to create a post-->
-  <div class="shadow-lg" id="postForm">
-    <h3 class="text-center mt-4">Creating a post</h3>
+    <br>
+    <h1>Report for <span id="reportName"> Place Name</span></h1>
+    <br>
     <form>
-      <div class="container form-group p-2 mt-4 text-center" id="postImage">
-        <img class="img-fluid shadow-lg  opacity-50" id="selectedImage" src="/images/noImage.png">
-        <input type="file" id="imageInput" accept="image/*" style="display: none;">
-        <button type="button" class="btn btn-primary" id="selectImageButton">Select post image</button>
-      </div>
       <div class="form-group">
-        <label for="postTitle">Post Title</label>
-        <input type="text" class="form-control" id="postTitle">
+        <label for="exampleFormControlInput1">Add a place name</label>
+        <input type="text" class="form-control" id="title" placeholder="Title">
       </div>
-      <div class="mb-3">
-        <label for="postDesc" class="form-label">Post Description </label>
-        <textarea class="form-control" id="postDesc" rows="3"></textarea>
+      <br>
+      <div class="form-group">
+        <div class="card-body">
+          <p>Rate your overall experience:</p>
+          <span class="material-icons star" id="star1">star_outline</span>
+          <span class="material-icons star" id="star2">star_outline</span>
+          <span class="material-icons star" id="star3">star_outline</span>
+          <span class="material-icons star" id="star4">star_outline</span>
+          <span class="material-icons star" id="star5">star_outline</span>
+        </div>
+
+        <label for="exampleFormControlInput1">How easy is it to find parking here?</label>
+        <select class="form-control" id="parking">
+          <option>Hard</option>
+          <option>Moderate</option>
+          <option>Easy</option>
+          <option>Not-Sure</option>
+        </select>
+        <br>
+
+        <label for="exampleFormControlInput1">How would you rate the accessibility and convenience of transportation
+          options?</label>
+        <select class="form-control" id="transportation">
+          <option>Hard</option>
+          <option>Moderate</option>
+          <option>Easy</option>
+          <option>Not-Sure</option>
+        </select>
+        <br>
+
+        <label for="exampleFormControlInput1">How satisfied are you with the amenities available?</label>
+        <select class="form-control" id="amenities">
+          <option>Satisfied</option>
+          <option>Neutral</option>
+          <option>Not-Satisfied</option>
+        </select>
+        <br>
+
+        <label for="exampleFormControlInput1">How would you describe the safety measures?</label>
+        <select class="form-control" id="safetyMeasures">
+          <option>Satisfied</option>
+          <option>Neutral</option>
+          <option>Not-Satisfied</option>
+        </select>
+        <br>
+
+
+        <label for="exampleFormControlInput1">How satisfied are you with the level of crowding at this
+          location?</label>
+        <select class="form-control" id="crowding">
+          <option>Satisfied</option>
+          <option>Neutral</option>
+          <option>Not-Satisfied</option>
+        </select>
+        <br>
+
+        <label for="exampleFormControlInput1">How satisfied are you with the lighting in this area?</label>
+        <select class="form-control" id="lighting">
+          <option>Satisfied</option>
+          <option>Neutral</option>
+          <option>Not-Satisfied</option>
+        </select>
+        <br>
+
+        <label for="exampleFormControlInput1">How satisfied are you with the wheelchair accessibility?</label>
+        <select class="form-control" id="accessibility">
+          <option>Satisfied</option>
+          <option>Neutral</option>
+          <option>Not-Satisfied</option>
+        </select>
+        <br>
+
       </div>
-      <p class="fw-bold">Enter Location</p>
-      <div id="map" style="width: 100%; height: 400px; margin-bottom: 10px;"></div>
-      <input type="hidden" id="postLatitude" name="latitude">
-      <input type="hidden" id="postLongitude" name="longitude">
-      <div class="container text-end">
-        <button type="button" class="btn btn-primary" id="submitPostButton">Submit Post</button>
+
+      <div class="form-group">
+        <label for="ReportComments">Comments / Feedback</label>
+        <textarea class="form-control" id="description" rows="3"></textarea>
       </div>
-    </form>
+
+      <br>
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-lg btn-primary pull-right" onclick="writeReport()">Submit</button>
+
+      </div>
   </div>
-
-
+  </form>
+  </div>
 
   <!-- bottomNavbar -->
   <nav class="nav shadow-lg" id="bottomNavPlaceholder"></nav>
@@ -102,29 +162,21 @@
   <!-- Link to scripts of your own -->
   <script src="./scripts/firebaseAPI_TEAM26.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="./scripts/authentication.js"></script>
+  <!-- <script src="./scripts/authentication.js"></script> -->
   <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
   <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
   <!-- <script src="./scripts/script.js"></script> -->
   <script src="/scripts/skeleton.js"></script>
   <script src="/scripts/activeNav.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      $('#createPostButton').click(function () {
-        $('#postForm').addClass('show');
-        $('#postForm').removeClass('hide');
-      });
-      $('#submitPostButton').click(function () {
-        $('#postForm').addClass('hide');
-        $('#postForm').removeClass('show');
-
-      });
-    });
-  </script>
   <script src="/scripts/postToDatabase.js"></script>
   <script src="/scripts/main.js"></script>
   <script src="/scripts/mapbox.js"></script>
+  <script src="/scripts/report.js"></script>
+  <script src="/scripts/reportToDatabase.js"></script>
+  <script src="/scripts/eachReport.js"></script>
+
+
 
 </body>
 

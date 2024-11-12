@@ -50,44 +50,44 @@
   <!-- Placeholder for navBar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow" id="navbarPlaceholder"></nav>
 
-  <!--Content-->
-  <div class="createPost container ">
-    <button type="button" class="btn btn-primary" id="createPostButton">Create Post</button>
+  <div class="container">
+    <h1><span id="reportName">this place</span></h1>
+    <div class="position-relative">
+      <button class="btn btn-primary position-absolute bottom-0 end-0 m-3"
+        onclick="savePlaceNameDocumentIDAndRedirect()">Write Report</button>
+    </div>
   </div>
 
   <div class="container">
-    <div class="d-flex flex-wrap postContainer mt-4 justify-content-around">
+    <h2>Reports:</h2>
+    <div id="details-go-here"></div>
+    <!-- Here is the container for cards with horizontal scrolling -->
+    <div class="card-container">
+      <div id="reportCardGroup" class="row row-cols-auto">
+        <!-- Add your card templates here -->
+      </div>
     </div>
   </div>
-  </div>
 
-  <!--Form to create a post-->
-  <div class="shadow-lg" id="postForm">
-    <h3 class="text-center mt-4">Creating a post</h3>
-    <form>
-      <div class="container form-group p-2 mt-4 text-center" id="postImage">
-        <img class="img-fluid shadow-lg  opacity-50" id="selectedImage" src="/images/noImage.png">
-        <input type="file" id="imageInput" accept="image/*" style="display: none;">
-        <button type="button" class="btn btn-primary" id="selectImageButton">Select post image</button>
+  <template id="reoprtCardTemplate">
+    <div class="card bg-secondary">
+      <img class="card-img-top">
+      <div class="card-body bg-light">
+        <h5 class="title">placeholder</h5>
+        <p class="star-rating"></p>
+        <p class="time">placeholder</p>
+        <p class="parking">placeholder</p>
+        <p class="transportation">placeholder</p>
+        <p class="amenities">placeholder</p>
+        <p class="crowding">placeholder</p>
+        <p class="lighting">placeholder</p>
+        <p class="accessibility">placeholder</p>
+        <br>
+        <p class="description">This card has supporting text below as a natural lead-in to additional content.
+        </p>
       </div>
-      <div class="form-group">
-        <label for="postTitle">Post Title</label>
-        <input type="text" class="form-control" id="postTitle">
-      </div>
-      <div class="mb-3">
-        <label for="postDesc" class="form-label">Post Description </label>
-        <textarea class="form-control" id="postDesc" rows="3"></textarea>
-      </div>
-      <p class="fw-bold">Enter Location</p>
-      <div id="map" style="width: 100%; height: 400px; margin-bottom: 10px;"></div>
-      <input type="hidden" id="postLatitude" name="latitude">
-      <input type="hidden" id="postLongitude" name="longitude">
-      <div class="container text-end">
-        <button type="button" class="btn btn-primary" id="submitPostButton">Submit Post</button>
-      </div>
-    </form>
-  </div>
-
+    </div>
+  </template>
 
 
   <!-- bottomNavbar -->
@@ -109,22 +109,13 @@
   <script src="/scripts/skeleton.js"></script>
   <script src="/scripts/activeNav.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      $('#createPostButton').click(function () {
-        $('#postForm').addClass('show');
-        $('#postForm').removeClass('hide');
-      });
-      $('#submitPostButton').click(function () {
-        $('#postForm').addClass('hide');
-        $('#postForm').removeClass('show');
-
-      });
-    });
-  </script>
   <script src="/scripts/postToDatabase.js"></script>
   <script src="/scripts/main.js"></script>
   <script src="/scripts/mapbox.js"></script>
+  <script src="/scripts/eachReport.js"></script>
+  <script src="/scripts/report.js"></script>
+
+
 
 </body>
 
