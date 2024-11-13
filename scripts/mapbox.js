@@ -135,6 +135,7 @@ function addPostMarkersToMap() {
             const longitude = parseFloat(post.longitude);
             const title = post.title; 
             const description = post.description;
+            const address = post.address;
 
             console.log('Fetched post data:', post); // Log the data to check
             
@@ -143,8 +144,17 @@ function addPostMarkersToMap() {
                     .setLngLat([longitude, latitude]) // Use the numeric values
                     .addTo(map);
         
-                const popup = new mapboxgl.Popup({ offset: 25 })
-                    .setHTML(`<h5>${title}</h5><p>${description}</p>`);
+                    const popup = new mapboxgl.Popup({ offset: 25 })
+                    .setHTML(`
+                        <h5>${title}</h5>
+                        <p>${description}</p>
+                        <p><strong>Location:</strong> ${address}</p>
+                        <div style="text-align: center;">
+                            <a href="viewPost.html?postId=${doc.id}" class="btn btn-primary">View Post</a>
+                        </div>
+                    `);
+                marker.setPopup(popup);
+                
                 marker.setPopup(popup);
             } else {
                 console.error('Invalid coordinates:', latitude, longitude);
