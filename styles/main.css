@@ -55,7 +55,8 @@
 }
 
 #closeButton{
-    float: right    ;
+    float: right;
+    cursor: pointer;
 }
 
 
