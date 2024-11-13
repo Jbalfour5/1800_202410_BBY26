@@ -33,10 +33,12 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close" />
 
   <!-- Link to styles of your own -->
   <link rel="stylesheet" href="./styles/bottomNav.css">
   <link rel="stylesheet" href="./styles/mapStyle.css">
+  <link rel="stylesheet" href="./styles/main.css">
  
 
 
@@ -51,6 +53,44 @@
 
    <div id="map"></div>
    <div id="mapboxSearch"></div>
+
+   <div class="createPost container ">
+    <button type="button" class="btn btn-primary" id="createPostButton">Create Post</button>
+  </div>
+  
+  <div class="createReport container ">
+    <button type="button" class="btn btn-primary" id="createReportButton" onclick="savePlaceNameDocumentIDAndRedirect()">Create Report</button>
+  </div>
+
+   <!-- Form to create a post -->
+   <div class="shadow-lg" id="postForm">
+    <span class="material-symbols-outlined" id="closeButton">
+      close</span>
+    <h3 class="text-center mt-4">Creating a post</h3>
+    <form>
+      <div class="container form-group p-2 mt-4 text-center" id="postImage">
+        <img class="img-fluid shadow-lg  opacity-50" id="selectedImage" src="/images/noImage.png">
+        <input type="file" id="imageInput" accept="image/*" style="display: none;">
+        <button type="button" class="btn btn-primary" id="selectImageButton">Select post image</button>
+      </div>
+      <div class="form-group">
+        <label for="postTitle">Post Title</label>
+        <input type="text" class="form-control" id="postTitle">
+      </div>
+      <div class="mb-3">
+        <label for="postDesc" class="form-label">Post Description </label>
+        <textarea class="form-control" id="postDesc" rows="3"></textarea>
+      </div>
+      <p class="fw-bold">Enter Location</p>
+      <div id="map" style="width: 100%; height: 400px; margin-bottom: 10px;"></div>
+      <input type="hidden" id="postLatitude" name="latitude">
+      <input type="hidden" id="postLongitude" name="longitude">
+      <div class="container text-end">
+        <button type="button" class="btn btn-primary" id="submitPostButton">Submit Post</button>
+      </div>
+    </form>
+  </div>
+
 
   <!-- PlaceHolder for bottom Navbar -->
   <nav class="nav shadow-lg" id="bottomNavPlaceholder"></nav>
@@ -69,6 +109,23 @@
     <script src="/scripts/activeNav.js"></script>
     <script src="/scripts/mapbox.js"></script>  
     <script src="/scripts/logout.js"></script>
+    <script src="/scripts/eachReport.js"></script>
+    <script>
+      $(document).ready(function () {
+        $('#createPostButton').click(function () {
+          $('#postForm').addClass('show');
+          $('#postForm').removeClass('hide');
+        });
+        $('#submitPostButton').click(function () {
+          $('#postForm').addClass('hide');
+          $('#postForm').removeClass('show');
+        });
+        $('#closeButton').click(function () {
+          $('#postForm').addClass('hide');
+          $('#postForm').removeClass('show');
+        });
+      });
+    </script>
 
 </body>
 

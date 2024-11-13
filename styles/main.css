@@ -7,6 +7,15 @@
     padding: 20px;
     z-index: 1000;
 }
+.createReport {
+    position: fixed;
+    bottom: 100px;
+    right: 1px;
+    width: 150px;
+    height: 100px;
+    padding: 20px;
+    z-index: 1000;
+}
 
 #postForm {
     position: fixed;
@@ -30,6 +39,7 @@
     visibility: visible;
     opacity: 1;
     transition: all 0.3s ease;
+    z-index: 10000000000;
 }
 
 #postForm.hide {
