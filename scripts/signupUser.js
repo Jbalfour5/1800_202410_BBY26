@@ -1,3 +1,4 @@
+    //Getting fields
     let emailInput = document.getElementById('emailInput');
     let passwordInput = document.getElementById('passwordInput');
     let firstNameInput = document.getElementById('firstNameInput');
@@ -6,7 +7,7 @@
 
     let RegisterUser = evt => {
       evt.preventDefault();
-
+      //Add data to firebase
       auth.createUserWithEmailAndPassword(emailInput.value, passwordInput.value)
       .then((credentials)=>{
         console.log(credentials);
@@ -35,5 +36,4 @@
         console.log(error.message);
       })
     }
-
-  loginForm.addEventListener('submit', RegisterUser);
+loginForm.addEventListener('submit', RegisterUser);

@@ -1,12 +1,14 @@
+//Getting elements
 const selectImageButton = document.getElementById('selectImageButton');
 const imageInput = document.getElementById('imageInput');
 const selectedImage = document.getElementById('selectedImage');
-let imageDataUrl;
+const postForm = document.getElementById('postForm');
+const submitPostButton = document.getElementById('submitPostButton');
 
+//Uploading image to posts
+let imageDataUrl;
 const targetWidth = 500; 
 const targetHeight = 300; 
-
-const postForm = document.getElementById('postForm');
 
 selectImageButton.addEventListener('click', function() {
     imageInput.click();
@@ -38,32 +40,27 @@ imageInput.addEventListener('change', function(event) {
     }
 });
 
-const submitPostButton = document.getElementById('submitPostButton');
-
+//Updating database when submitting a post
 submitPostButton.addEventListener('click', async () => {
     const postTitle = document.getElementById('postTitle').value;
     const postDesc = document.getElementById('postDesc').value;
 
-    const postLatitude = document.getElementById('postLatitude').value;
-    const postLongitude = document.getElementById('postLongitude').value;
-
     const address = await getAddressFromCoordinates(postLatitude, postLongitude);
 
-    // Debugging logs
+    //Debugging logs
     console.log("Title:", postTitle);
     console.log("Description:", postDesc);
     console.log("Image:", imageDataUrl);
     console.log("Adress:", address);
 
     const post = {
-        title: postTitle,
-        description: postDesc,
-        image: imageDataUrl,
-        address: address, 
-        createdAt: new Date(),
+        title: postTitle, //Name of the post
+        description: postDesc, //Post description
+        image: imageDataUrl, //Image data url
+        address: address, //Address the post is associated to
+        createdAt: new Date(), //When the post was created
     };
-
-
+    
     const db = firebase.firestore(); 
     db.collection('posts').add(post)
     .then((docRef) => {

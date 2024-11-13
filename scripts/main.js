@@ -1,3 +1,4 @@
+//Display posts from database
 function displayPosts() {
     const postContainer = document.querySelector('.postContainer'); 
   
@@ -5,7 +6,7 @@ function displayPosts() {
       querySnapshot.forEach((doc) => {
         const postData = doc.data();
   
-        // Create a Bootstrap card for each post
+        //Create a Bootstrap card for each post
         const card = document.createElement('div');
         card.className = 'card mb-4 col-md-3';
   
@@ -24,7 +25,7 @@ function displayPosts() {
         cardText.className = 'card-text';
         cardText.textContent = postData.description;
   
-        // Container for the button and address
+        //Container for the button and address
         const buttonAddressContainer = document.createElement('div');
         buttonAddressContainer.className = 'd-flex justify-content-between align-items-center mt-3';
   
@@ -37,14 +38,13 @@ function displayPosts() {
         const addressText = document.createElement('p');
         addressText.className = 'mb-0 ml-4';
         addressText.textContent = postData.address || 'Address not available';
-  
-        
+
         buttonAddressContainer.appendChild(viewMoreButton);
         buttonAddressContainer.appendChild(addressText);
   
         cardBody.appendChild(cardTitle);
         cardBody.appendChild(cardText);
-        cardBody.appendChild(buttonAddressContainer); // Append the container
+        cardBody.appendChild(buttonAddressContainer);
         card.appendChild(img);
         card.appendChild(cardBody);
   
@@ -54,6 +54,5 @@ function displayPosts() {
       console.log("Error getting documents: ", error);
     });
   }
-  
   window.addEventListener('DOMContentLoaded', displayPosts);
   
