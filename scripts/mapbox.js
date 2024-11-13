@@ -12,21 +12,11 @@ const map = new mapboxgl.Map({
 
 map.on('load', () => {
     console.log('Map load complete');
+    
     addPostMarkersToMap();
 });
 
 map.addControl(new mapboxgl.AttributionControl(), 'top-left');
-
-//Geolocating user and adding the button
-const geolocate = new mapboxgl.GeolocateControl({
-    positionOptions: {
-        enableHighAccuracy: true
-    },
-    trackUserLocation: true,
-    showUserHeading: true
-});
-map.addControl(geolocate, 'right');
-
 //Check for location, fly to user on load up
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {
@@ -52,7 +42,24 @@ const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl
 });
-map.addControl(geocoder, 'top-left'); 
+map.addControl(geocoder, 'top-left');
+
+//Geolocating user and adding the button
+const geolocate = new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    trackUserLocation: true,
+    showUserHeading: true
+});
+map.addControl(geolocate, 'top-left');
+
+//Searching function
+const zoomRotate = new mapboxgl.NavigationControl({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl
+});
+map.addControl(zoomRotate, 'top-left');
 
 //When creating post, new mapbox with ability to place map pins
 const createPostButton = document.getElementById('createPostButton');
@@ -73,8 +80,6 @@ createPostButton.addEventListener('click', function () {
         });
     }
 });
-
-// Call the function after initializing the map
 
 
 //Default marker placement
@@ -150,7 +155,7 @@ function addPostMarkersToMap() {
                         <p>${description}</p>
                         <p><strong>Location:</strong> ${address}</p>
                         <div style="text-align: center;">
-                            <a href="viewPost.html?postId=${doc.id}" class="btn btn-primary">View Post</a>
+                            <a href="postDetails.html?postId=${doc.id}" class="btn btn-primary">View Post</a>
                         </div>
                     `);
                 marker.setPopup(popup);
