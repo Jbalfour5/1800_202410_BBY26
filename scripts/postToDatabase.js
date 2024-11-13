@@ -45,6 +45,9 @@ submitPostButton.addEventListener('click', async () => {
     const postTitle = document.getElementById('postTitle').value;
     const postDesc = document.getElementById('postDesc').value;
 
+    const postLatitude = document.getElementById('postLatitude').value;
+    const postLongitude = document.getElementById('postLongitude').value;
+
     const address = await getAddressFromCoordinates(postLatitude, postLongitude);
 
     //Debugging logs
