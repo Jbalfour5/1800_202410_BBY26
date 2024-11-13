@@ -60,6 +60,8 @@ submitPostButton.addEventListener('click', async () => {
         title: postTitle, //Name of the post
         description: postDesc, //Post description
         image: imageDataUrl, //Image data url
+        longitude: postLongitude, //Longitude of the location 
+        latitude: postLatitude, //Latitude of the location 
         address: address, //Address the post is associated to
         createdAt: new Date(), //When the post was created
     };
