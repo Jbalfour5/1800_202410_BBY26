@@ -1,3 +1,4 @@
+
 //Mapbox API Token
 mapboxgl.accessToken = 'pk.eyJ1IjoiamJhbGZvdXI1IiwiYSI6ImNtMnV0MnZxbzA1OTEya29iZG95NDgxaHgifQ.48MC1AtpUWyZww1hh6s7Iw';
 
@@ -7,6 +8,11 @@ const map = new mapboxgl.Map({
     center: [-77.04, 38.907],
     zoom: 11.15,
     attributionControl: false
+});
+
+map.on('load', () => {
+    console.log('Map load complete');
+    addPostMarkersToMap();
 });
 
 map.addControl(new mapboxgl.AttributionControl(), 'top-left');
@@ -52,7 +58,7 @@ map.addControl(geocoder, 'top-left');
 const createPostButton = document.getElementById('createPostButton');
 createPostButton.addEventListener('click', function () {
     isCreatingPost = true;
-    map.getCanvas().style.cursor = 'pointer'; 
+    map.getCanvas().style.cursor = 'pointer';   
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -67,6 +73,9 @@ createPostButton.addEventListener('click', function () {
         });
     }
 });
+
+// Call the function after initializing the map
+
 
 //Default marker placement
 let marker = new mapboxgl.Marker({ draggable: true })
@@ -111,4 +120,37 @@ function getAddressFromCoordinates(latitude, longitude) {
             console.error('Error fetching address:', error);
             return 'Error fetching address';
         });
+
+        
+}
+ 
+function addPostMarkersToMap() {
+    const db = firebase.firestore(); 
+    console.log('Attempting to fetch posts from Firestore');
+    
+    db.collection('posts').get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            const post = doc.data();
+            const latitude = parseFloat(post.latitude);  
+            const longitude = parseFloat(post.longitude);
+            const title = post.title; 
+            const description = post.description;
+
+            console.log('Fetched post data:', post); // Log the data to check
+            
+            if (latitude && longitude) {
+                const marker = new mapboxgl.Marker()
+                    .setLngLat([longitude, latitude]) // Use the numeric values
+                    .addTo(map);
+        
+                const popup = new mapboxgl.Popup({ offset: 25 })
+                    .setHTML(`<h5>${title}</h5><p>${description}</p>`);
+                marker.setPopup(popup);
+            } else {
+                console.error('Invalid coordinates:', latitude, longitude);
+            }
+        });
+    }).catch((error) => {
+        console.error("Error fetching posts:", error);
+    });
 }
