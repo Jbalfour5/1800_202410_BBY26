@@ -1,4 +1,3 @@
-//Getting elements
 const selectImageButton = document.getElementById('selectImageButton');
 const imageInput = document.getElementById('imageInput');
 const selectedImage = document.getElementById('selectedImage');
@@ -7,23 +6,24 @@ const submitPostButton = document.getElementById('submitPostButton');
 
 //Uploading image to posts
 let imageDataUrl;
-const targetWidth = 500; 
-const targetHeight = 300; 
+const targetWidth = 500;
+const targetHeight = 300;
 
-selectImageButton.addEventListener('click', function() {
+selectImageButton.addEventListener('click', function () {
     imageInput.click();
 });
 
-imageInput.addEventListener('change', function(event) {
-    const file = event.target.files[0]; 
+//Changes the image for the post (needs implementation to show image uploaded)
+imageInput.addEventListener('change', function (event) {
+    const file = event.target.files[0];
     if (file) {
-        const reader = new FileReader(); 
-        reader.onload = function(e) {
-            const img = new Image(); 
-            img.src = e.target.result; 
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const img = new Image();
+            img.src = e.target.result;
 
-            img.onload = function() {
-                
+            img.onload = function () {
+
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
 
@@ -36,7 +36,7 @@ imageInput.addEventListener('change', function(event) {
                 imageDataUrl = selectedImage.src;
             };
         };
-        reader.readAsDataURL(file); 
+        reader.readAsDataURL(file);
     }
 });
 
@@ -66,14 +66,14 @@ submitPostButton.addEventListener('click', async () => {
         createdAt: new Date(), //When the post was created
     };
     
-    const db = firebase.firestore(); 
+    const db = firebase.firestore();
     db.collection('posts').add(post)
-    .then((docRef) => {
-        console.log("Post written with ID: ", docRef.id);
-        window.location.reload();
-      
-    })
-    .catch((error) => {
-        console.error("Error adding post: ", error);
-    });
+        .then((docRef) => {
+            console.log("Post written with ID: ", docRef.id);
+            window.location.reload();
+
+        })
+        .catch((error) => {
+            console.error("Error adding post: ", error);
+        });
 });

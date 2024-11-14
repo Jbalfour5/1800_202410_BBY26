@@ -1,10 +1,9 @@
-
+//Displays the report window depending on the document ID
 function displayReportInfo() {
-    let params = new URL(window.location.href); //get URL of search bar
-    let ID = params.searchParams.get("docID"); //get value for key "id"
+    let params = new URL(window.location.href);
+    let ID = params.searchParams.get("docID");
     console.log(ID);
 
-    // doublecheck: is your collection called "Reviews" or "reviews"?
     db.collection("reports")
         .doc(ID)
         .get()
@@ -13,21 +12,20 @@ function displayReportInfo() {
             reportCode = thisReport.code;
             reportName = doc.data().name;
 
-            // only populate title, and image
             document.getElementById("reportName").innerHTML = reportName;
         });
 }
+displayReportInfo(); //Runs the function
 
-displayReportInfo();
-
+//Saves the place and document ID to local storage and redirects the user
 function savePlaceNameDocumentIDAndRedirect() {
-    let params = new URL(window.location.href) //get the url from the search bar
+    let params = new URL(window.location.href) 
     let ID = params.searchParams.get("docID");
     localStorage.setItem('reportDocID', ID);
     window.location.href = 'report.html';
 }
 
-
+//P
 function populateReports() {
     console.log("test");
     let reportCardTemplate = document.getElementById("reportCardTemplate");

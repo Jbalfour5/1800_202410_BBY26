@@ -30,8 +30,7 @@
   <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
   <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <!-- Link to styles of your own -->
   <link rel="stylesheet" href="./styles/bottomNav.css">
@@ -48,31 +47,31 @@
   <div class="container">
     <h1>User Profile </h1>
     <form>
-        <fieldset class="mb-3" id="personalInfoFields" disabled>
-            <div class="form-group">
-                <label >Name</label>
-                <input type="text" id="nameInput" class="form-control" placeholder="Enter your name">
-            </div>
-            <div class="form-group">
-                <label >Age</label>
-                <input type="text" id="ageInput" class="form-control" placeholder="Enter your age">
-            </div>
-            <div class="form-group">
-              <label >City</label>
-              <input type="text" id="cityInput" class="form-control" placeholder="Enter your city">
-            </div>
-            <div class="form-group">
-              <label >Disability</label>
-              <input type="text" id="accessInput" class="form-control" placeholder="Enter your disability (if any)">
-            </div>
-        </fieldset>
-        <div class="d-flex justify-content-end mt-5">
-            <button type="button" class="btn btn-secondary" onclick="editUserInfo()">Edit</button>
-            <span style="width: 10px"></span>
-            <button type="button" class="btn btn-info" onclick="saveUserInfo()">Save Profile</button>
+      <fieldset class="mb-3" id="personalInfoFields" disabled>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="nameInput" class="form-control" placeholder="Enter your name">
         </div>
+        <div class="form-group">
+          <label>Age</label>
+          <input type="text" id="ageInput" class="form-control" placeholder="Enter your age">
+        </div>
+        <div class="form-group">
+          <label>City</label>
+          <input type="text" id="cityInput" class="form-control" placeholder="Enter your city">
+        </div>
+        <div class="form-group">
+          <label>Disability</label>
+          <input type="text" id="accessInput" class="form-control" placeholder="Enter your disability (if any)">
+        </div>
+      </fieldset>
+      <div class="d-flex justify-content-end mt-5">
+        <button type="button" class="btn btn-secondary" onclick="editUserInfo()">Edit</button>
+        <span style="width: 10px"></span>
+        <button type="button" class="btn btn-info" onclick="saveUserInfo()">Save Profile</button>
+      </div>
     </form>
-</div>
+  </div>
 
   <!-- PlaceHolder for bottom Navbar -->
   <nav class="nav shadow-lg" id="bottomNavPlaceholder"></nav>
@@ -81,17 +80,18 @@
   <!-- Your own JavaScript functions go here    -->
   <!---------------------------------------------->
 
-    <!-- Link to scripts of your own -->
-    <script src="./scripts/firebaseAPI_TEAM26.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="./scripts/authentication.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
-    <!-- <script src="./scripts/script.js"></script> -->
-    <script src="/scripts/skeleton.js"></script>
-    <script src="/scripts/activeNav.js"></script>
-    <script src="/scripts/logout.js"></script>
-    <script src="./scripts/profile.js"></script>
+  <!-- Link to scripts of your own -->
+  <script src="./scripts/firebaseAPI_TEAM26.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="./scripts/authentication.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+  <!-- <script src="./scripts/script.js"></script> -->
+  <script src="/scripts/skeleton.js"></script>
+  <script src="/scripts/activeNav.js"></script>
+  <script src="/scripts/logout.js"></script>
+  <script src="./scripts/profile.js"></script>
 
 </body>
+
 </html>
