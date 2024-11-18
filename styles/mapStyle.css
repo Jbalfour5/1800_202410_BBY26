@@ -21,9 +21,10 @@ body {
 }
 
 .mapboxgl-ctrl-group {
-	display: flex; 
-	flex-direction: row; 
+	display: flex;
+	flex-direction: row;
 }
+
 .mapboxgl-ctrl-group button {
 	margin-right: 10px;
 }

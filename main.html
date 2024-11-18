@@ -54,6 +54,9 @@
   <!-- Placeholder for Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow" id="navbarPlaceholder"></nav>
 
+  <!-- Header -->
+   <h3 class="text-center mt-4">Lastest Safety Posts</h3>
+
   <!-- Posts -->
   <div class="createPost container ">
     <button type="button" class="btn btn-primary" id="createPostButton">Create Post</button>
@@ -66,7 +69,7 @@
   </div>
 
   <!-- Form to create a post -->
-  <div class="shadow-lg" id="postForm">
+  <div class="shadow-lg " id="postForm">
     <span class="material-symbols-outlined" id="closeButton">
       close</span>
     <h3 class="text-center mt-4">Creating a post</h3>
@@ -84,7 +87,18 @@
         <label for="postDesc" class="form-label">Post Description </label>
         <textarea class="form-control" id="postDesc" rows="3"></textarea>
       </div>
-      <p class="fw-bold">Enter Location</p>
+      <div id="prioritySelect">
+        <p>Priority Level (At what priority should travellers consider your post?)</p>
+        <div class="d-flex justify-content-center align-items-center">
+          <div id="priorityButtons" class="d-flex justify-content-center gap-2">
+            <button type="button" class="btn btn-outline-secondary">Not Applicable</button>
+            <button type="button" class="btn btn-outline-success">Not Priority</button>
+            <button type="button" class="btn btn-outline-warning">Moderate Priority</button>
+            <button type="button" class="btn btn-outline-danger">Top Priority</button>
+          </div>
+        </div>
+      </div>
+      <p class="mt-4">Enter Location</p>
       <div id="map" style="width: 100%; height: 400px; margin-bottom: 10px;"></div>
       <input type="hidden" id="postLatitude" name="latitude">
       <input type="hidden" id="postLongitude" name="longitude">
@@ -96,8 +110,6 @@
 
   <!-- PlaceHolder for bottom Navbar -->
   <nav class="nav shadow-lg" id="bottomNavPlaceholder"></nav>
-
-
 
   <!---------------------------------------------->
   <!-- Your own JavaScript functions go here    -->
@@ -112,22 +124,6 @@
   <script src="/scripts/skeleton.js"></script>
   <script src="/scripts/activeNav.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      $('#createPostButton').click(function () {
-        $('#postForm').addClass('show');
-        $('#postForm').removeClass('hide');
-      });
-      $('#submitPostButton').click(function () {
-        $('#postForm').addClass('hide');
-        $('#postForm').removeClass('show');
-      });
-      $('#closeButton').click(function () {
-        $('#postForm').addClass('hide');
-        $('#postForm').removeClass('show');
-      });
-    });
-  </script>
   <script src="/scripts/postToDatabase.js"></script>
   <script src="/scripts/main.js"></script>
   <script src="/scripts/mapbox.js"></script>

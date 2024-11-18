@@ -7,6 +7,7 @@
     padding: 20px;
     z-index: 1000;
 }
+
 .createReport {
     position: fixed;
     bottom: 50px;
@@ -25,14 +26,15 @@
     visibility: hidden;
     opacity: 0;
     height: 65vh;
-    width: 80vw; 
-    max-width: 700px; 
+    width: 80vw;
+    max-width: 700px;
     padding: 10px;
     overflow-y: auto;
     z-index: 1050;
     background-color: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    border-radius: 10px;
 }
 
 #postForm.show {
@@ -50,7 +52,7 @@
 
 #postImage img {
     position: relative;
-    width: 100%; 
+    width: 100%;
     height: auto;
     outline: 2px solid rgb(0, 0, 0);
     overflow: hidden;
@@ -64,9 +66,11 @@
     z-index: 1;
 }
 
-#closeButton{
+#closeButton {
     float: right;
     cursor: pointer;
 }
 
-
+#map{
+    width: 100%;
+}

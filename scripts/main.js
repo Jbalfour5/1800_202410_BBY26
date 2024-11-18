@@ -34,10 +34,10 @@ function displayPosts() {
       viewMoreButton.textContent = 'View More';
       viewMoreButton.href = `postDetails.html?id=${doc.id}`;
 
-
       const addressText = document.createElement('p');
-      addressText.className = 'mb-0 ml-4';
+      addressText.className = 'mb-0';
       addressText.textContent = postData.address || 'Address not available';
+      addressText.style.marginLeft = '10px';
 
       buttonAddressContainer.appendChild(viewMoreButton);
       buttonAddressContainer.appendChild(addressText);
@@ -55,3 +55,19 @@ function displayPosts() {
   });
 }
 window.addEventListener('DOMContentLoaded', displayPosts); //Runs the function once the DOM content has loaded
+
+//Handles the showing and hiding of the form when hitting create post 
+$(document).ready(function () {
+  $('#createPostButton').click(function () {
+    $('#postForm').addClass('show');
+    $('#postForm').removeClass('hide');
+  });
+  $('#submitPostButton').click(function () {
+    $('#postForm').addClass('hide');
+    $('#postForm').removeClass('show');
+  });
+  $('#closeButton').click(function () {
+    $('#postForm').addClass('hide');
+    $('#postForm').removeClass('show');
+  });
+});
