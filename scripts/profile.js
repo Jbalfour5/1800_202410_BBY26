@@ -1,5 +1,3 @@
-var currentUser;          //put this right after you start script tag before writing any functions.
-
 var currentUser;               //points to the document of the user who is logged in
 function populateUserInfo() {
     firebase.auth().onAuthStateChanged(user => {
@@ -13,15 +11,19 @@ function populateUserInfo() {
                 .then(userDoc => {
                     //get the data fields of the user
                     let userName = userDoc.data().name;
+                    let firstName = userDoc.data().firstName;
                     let userAge = userDoc.data().age;
                     let userCity = userDoc.data().city;
+                    let userAccess = userDoc.data().access;
 
+                    console.log("userName:", userName); // Log userName
+                    console.log("firstName:", firstName); // Log firstName
                     //if the data fields are not empty, then write them in to the form.
-                    if (userName != null) {
-                        document.getElementById("nameInput").value = userName;
+                    if (userName != null || firstName != null) {
+                        document.getElementById("nameInput").value = userName || firstName;
                     }
                     if (userAge != null) {
-                        document.getElementById("schoolInput").value = userAge;
+                        document.getElementById("ageInput").value = userAge;
                     }
                     if (userCity != null) {
                         document.getElementById("cityInput").value = userCity;
@@ -37,7 +39,6 @@ function populateUserInfo() {
     });
 }
 
-//call the function to run it 
 populateUserInfo();
 
 function editUserInfo() {
