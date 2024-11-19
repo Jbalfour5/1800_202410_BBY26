@@ -40,6 +40,7 @@ imageInput.addEventListener('change', function (event) {
     }
 });
 
+
 //Updating database when submitting a post
 submitPostButton.addEventListener('click', async () => {
     const postTitle = document.getElementById('postTitle').value;
@@ -48,22 +49,25 @@ submitPostButton.addEventListener('click', async () => {
     const postLatitude = document.getElementById('postLatitude').value;
     const postLongitude = document.getElementById('postLongitude').value;
 
+    const selectedPriority = document.querySelector('input[name="priority"]:checked').value;
+
     const address = await getAddressFromCoordinates(postLatitude, postLongitude);
 
     //Debugging logs
     console.log("Title:", postTitle);
     console.log("Description:", postDesc);
-    console.log("Image:", imageDataUrl);
     console.log("Adress:", address);
+    console.log("Created at:", new Date());
+    console.log("Priority of post:", selectedPriority);
 
     const post = {
         title: postTitle, //Name of the post
         description: postDesc, //Post description
-        image: imageDataUrl, //Image data url
         longitude: postLongitude, //Longitude of the location 
         latitude: postLatitude, //Latitude of the location 
         address: address, //Address the post is associated to
         createdAt: new Date(), //When the post was created
+        priorityLevel: selectedPriority //The Priority of the post
     };
     
     const db = firebase.firestore();

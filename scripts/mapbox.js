@@ -85,7 +85,7 @@ createPostButton.addEventListener('click', function () {
 
 
 //Default marker placement
-let marker = new mapboxgl.Marker({ draggable: true })
+let marker = new mapboxgl.Marker({ draggable: true, color: "#0d6efd" })
     .setLngLat([-77.04, 38.907])
     .addTo(map);
 let isCreatingPost = false;
@@ -127,8 +127,6 @@ function getAddressFromCoordinates(latitude, longitude) {
             console.error('Error fetching address:', error);
             return 'Error fetching address';
         });
-
-
 }
 
 //Adds markers to the map with infromation on each post
@@ -144,11 +142,22 @@ function addPostMarkersToMap() {
             const title = post.title;
             const description = post.description;
             const address = post.address;
+            const priority = post.priorityLevel;
 
             console.log('Fetched post data:', post);
 
             if (latitude && longitude) {
-                const marker = new mapboxgl.Marker()
+
+                const priorityColors = {
+                    "Not Applicable": "#6c757d",
+                    "Low Priority": "#198754",
+                    "Moderate Priority": "#dea702",
+                    "Top Priority": "#dc3545",
+                };
+
+                const markerColor = priorityColors[priority] || "#0d6efd"; //Default color 
+
+                const marker = new mapboxgl.Marker({ color: markerColor })
                     .setLngLat([longitude, latitude])
                     .addTo(map);
 
@@ -157,6 +166,7 @@ function addPostMarkersToMap() {
                         <h5>${title}</h5>
                         <p>${description}</p>
                         <p><strong>Location:</strong> ${address}</p>
+                        <p><strong>Priority:</strong> ${priority}</p>
                         <div style="text-align: center;">
                             <a href="postDetails.html?postId=${doc.id}" class="btn btn-primary">View Post</a>
                         </div>

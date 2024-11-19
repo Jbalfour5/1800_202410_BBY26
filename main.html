@@ -90,14 +90,21 @@
       <div id="prioritySelect">
         <p>Priority Level (At what priority should travellers consider your post?)</p>
         <div class="d-flex justify-content-center align-items-center">
-          <div id="priorityButtons" class="d-flex justify-content-center gap-2">
-            <button type="button" class="btn btn-outline-secondary">Not Applicable</button>
-            <button type="button" class="btn btn-outline-success">Not Priority</button>
-            <button type="button" class="btn btn-outline-warning">Moderate Priority</button>
-            <button type="button" class="btn btn-outline-danger">Top Priority</button>
+          <div id="priorityButtons" class="btn-group" role="group" aria-label="Priority Level">
+            <input type="radio" class="btn-check" name="priority" id="notApplicable" value="Not Applicable" autocomplete="off" checked>
+            <label class="btn btn-outline-secondary" for="notApplicable">Not Applicable</label>
+      
+            <input type="radio" class="btn-check" name="priority" id="lowPriority" value="Low Priority" autocomplete="off">
+            <label class="btn btn-outline-success" for="lowPriority">Low Priority</label>
+      
+            <input type="radio" class="btn-check" name="priority" id="moderatePriority" value="Moderate Priority" autocomplete="off">
+            <label class="btn btn-outline-warning" for="moderatePriority">Moderate Priority</label>
+      
+            <input type="radio" class="btn-check" name="priority" id="topPriority" value="Top Priority" autocomplete="off">
+            <label class="btn btn-outline-danger" for="topPriority">Top Priority</label>
           </div>
         </div>
-      </div>
+      </div>      
       <p class="mt-4">Enter Location</p>
       <div id="map" style="width: 100%; height: 400px; margin-bottom: 10px;"></div>
       <input type="hidden" id="postLatitude" name="latitude">
@@ -128,7 +135,6 @@
   <script src="/scripts/main.js"></script>
   <script src="/scripts/mapbox.js"></script>
   <script src="/scripts/logout.js"></script>
-
 </body>
 
 </html>
