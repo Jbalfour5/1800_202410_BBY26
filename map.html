@@ -62,6 +62,23 @@
       onclick="savePlaceNameDocumentIDAndRedirect()">Create Report</button>
   </div>
 
+  <div id="legendDrawer" class="legend-drawer">
+    <button class="toggle-btn" onclick="toggleLegend()">☰ Legend</button>
+    <div class="legend-content shadow-lg">
+      <h5>Legend</h5>
+      <ul class="list-unstyled">
+        <li><span class="pin-color red"></span> High Priority</li>
+        <li><p>Avoid areas with this pin!</p></li>
+        <li><span class="pin-color yellow"></span> Medium Priority</li>
+        <li><p>Stay alert in areas with this pin!</p></li>
+        <li><span class="pin-color green"></span> Low Priority</li>
+        <li><p>Generally safe but stay cautious of areas with this pin!</p></li>
+        <li><span class="pin-color grey"></span> Not Applicable</li>
+        <li><p>This pin does not have a priority associated to it</p></li>
+      </ul>
+    </div>
+  </div>
+
   <!-- PlaceHolder for bottom Navbar -->
   <nav class="nav shadow-lg" id="bottomNavPlaceholder"></nav>
 

@@ -56,7 +56,7 @@ function displayPosts() {
 }
 window.addEventListener('DOMContentLoaded', displayPosts); //Runs the function once the DOM content has loaded
 
-//Handles the showing and hiding of the form when hitting create post 
+//Handles the showing and hiding of the form when hitting create post
 $(document).ready(function () {
   $('#createPostButton').click(function () {
     $('#postForm').addClass('show');

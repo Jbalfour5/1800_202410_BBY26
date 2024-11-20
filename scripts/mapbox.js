@@ -182,3 +182,9 @@ function addPostMarkersToMap() {
         console.error("Error fetching posts:", error);
     });
 }
+
+function toggleLegend() {
+    const legend = document.getElementById('legendDrawer');
+    legend.classList.toggle('open');
+  }
+  

@@ -14,7 +14,7 @@ function populateUserInfo() {
                     let firstName = userDoc.data().firstName;
                     let userAge = userDoc.data().age;
                     let userCity = userDoc.data().city;
-                    let userAccess = userDoc.data().access;
+                    let userAccess = userDoc.data().access || "none";
 
                     console.log("userName:", userName); // Log userName
                     console.log("firstName:", firstName); // Log firstName

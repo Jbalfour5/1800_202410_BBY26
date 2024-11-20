@@ -20,6 +20,15 @@ body {
 	z-index: 10;
 }
 
+.mapboxgl-ctrl-geocoder.mapboxgl-ctrl {
+	width: 50%;
+	top: 15px;
+	left: 10px;
+	max-width: 600px; 
+	min-width: 200px; 
+	margin: 10px auto;
+}
+
 .mapboxgl-ctrl-group {
 	display: flex;
 	flex-direction: row;
@@ -28,3 +37,68 @@ body {
 .mapboxgl-ctrl-group button {
 	margin-right: 10px;
 }
+
+.legend-drawer {
+	position: fixed;
+	right: -200px; 
+	top: 50%;
+	transform: translateY(-50%);
+	width: 200px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	transition: right 0.3s ease;
+	border-radius: 15px;
+	z-index: 10000000;
+  }
+  
+  .legend-drawer.open {
+	right: 0; 
+  }
+  
+  .toggle-btn {
+	position: absolute;
+	left: -90px;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	font-size: 100%;
+	border-radius: 5px;
+  }
+  
+  .legend-content {
+	padding: 10px;
+  }
+  
+  .legend-content h5 {
+	margin-bottom: 10px;
+	text-align: center;
+  }
+  
+  .pin-color {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	margin-right: 8px;
+	border-radius: 50%;
+  }
+  
+  .pin-color.red {
+	background-color: #dc3545;
+  }
+  
+  .pin-color.yellow {
+	background-color: #dea702;
+  }
+  
+  .pin-color.green {
+	background-color: #198754;
+  }
+
+  .pin-color.grey {
+	background-color: #6c757d;
+  }
+  
