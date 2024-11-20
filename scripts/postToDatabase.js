@@ -72,14 +72,15 @@ submitPostButton.addEventListener('click', async () => {
         }
 
         const userData = userDoc.data();
-        const createdBy = userData.name || userData.firstName || "Unknown User";
+        const createdByDisplay = userData.name || userData.firstName || "Unknown User";
 
         //Debugging logs
         console.log("Title:", postTitle);
         console.log("Description:", postDesc);
         console.log("Adress:", address);
         console.log("Created at:", new Date());
-        console.log("Created by:", createdBy);
+        console.log("Created by:", createdByDisplay);
+        console.log("Creator ID:", userId);
         console.log("Priority of post:", selectedPriority);
 
         const post = {
@@ -89,7 +90,8 @@ submitPostButton.addEventListener('click', async () => {
             latitude: postLatitude, //Latitude of the location 
             address: address,  //Address the post is associated to
             createdAt: new Date(), //When the post was created
-            createdBy: createdBy, //Who created the post (saves first name if the user has not set a user name)
+            createdBy: createdByDisplay, //Who created the post (saves first name if the user has not set a user name) for displaying on the card
+            creatorID: userId, //Who created the post (saves the users id)
             priorityLevel: selectedPriority, //The Priority of the post
         };
 
@@ -102,3 +104,4 @@ submitPostButton.addEventListener('click', async () => {
         console.error("Error fetching user or creating post:", error);
     }
 });
+

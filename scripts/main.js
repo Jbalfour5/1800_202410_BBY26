@@ -66,6 +66,10 @@ function displayPosts() {
         dislikeButton.innerHTML = '<span class="material-icons">thumb_down</span>';
         dislikeButton.dataset.postId = postId;
 
+        const author = document.createElement('p');
+        author.className = 'mt-3 text-muted'
+        author.innerHTML = `Created by: ${postData.createdBy}`;
+
         // Append Like/Dislike buttons
         likeDislikeContainer.appendChild(likeButton);
         likeDislikeContainer.appendChild(dislikeButton);
@@ -76,14 +80,17 @@ function displayPosts() {
         cardBody.appendChild(cardTitle);
         cardBody.appendChild(cardText);
         cardBody.appendChild(buttonAddressContainer);
+        cardBody.appendChild(author); 
         card.appendChild(img);
         card.appendChild(cardBody);
 
         cardBody.appendChild(likeDislikeContainer);
         likeButton.appendChild(likeCount);
         dislikeButton.appendChild(dislikeCount);
+       
 
         postContainer.appendChild(card);
+        
 
         // Add event listeners for like and dislike buttons
         likeButton.addEventListener("click", () => {
