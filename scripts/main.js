@@ -2,99 +2,102 @@
 function displayPosts() {
   const postContainer = document.querySelector('.postContainer');
 
-  db.collection("posts").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      const postData = doc.data();
-      const postId = doc.id;
+  db.collection("posts")
+    .orderBy("createdAt", "desc")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const postData = doc.data();
+        const postId = doc.id;
 
-      //Create a Bootstrap card for each post
-      const card = document.createElement('div');
-      card.className = 'card mb-4 col-md-3';
+        // Create a Bootstrap card for each post
+        const card = document.createElement('div');
+        card.className = 'card mb-4 col-md-3';
 
-      const img = document.createElement('img');
-      img.className = 'card-img-top';
-      img.src = postData.imageUrl || 'images/noImage.png';
+        const img = document.createElement('img');
+        img.className = 'card-img-top';
+        img.src = postData.imageUrl || 'images/noImage.png';
 
-      const cardBody = document.createElement('div');
-      cardBody.className = 'card-body';
+        const cardBody = document.createElement('div');
+        cardBody.className = 'card-body';
 
-      const cardTitle = document.createElement('h5');
-      cardTitle.className = 'card-title';
-      cardTitle.textContent = postData.title;
+        const cardTitle = document.createElement('h5');
+        cardTitle.className = 'card-title';
+        cardTitle.textContent = postData.title;
 
-      const cardText = document.createElement('p');
-      cardText.className = 'card-text';
-      cardText.textContent = postData.description;
+        const cardText = document.createElement('p');
+        cardText.className = 'card-text';
+        cardText.textContent = postData.description;
 
-      //Container for the button and address
-      const buttonAddressContainer = document.createElement('div');
-      buttonAddressContainer.className = 'd-flex justify-content-between align-items-center mt-3';
+        // Container for the button and address
+        const buttonAddressContainer = document.createElement('div');
+        buttonAddressContainer.className = 'd-flex justify-content-between align-items-center mt-3';
 
-      const viewMoreButton = document.createElement('a');
-      viewMoreButton.className = 'btn btn-primary';
-      viewMoreButton.textContent = 'View More';
-      viewMoreButton.href = `postDetails.html?id=${doc.id}`;
+        const viewMoreButton = document.createElement('a');
+        viewMoreButton.className = 'btn btn-primary';
+        viewMoreButton.textContent = 'View More';
+        viewMoreButton.href = `postDetails.html?id=${doc.id}`;
 
-      const addressText = document.createElement('p');
-      addressText.className = 'mb-0';
-      addressText.textContent = postData.address || 'Address not available';
-      addressText.style.marginLeft = '10px';
+        const addressText = document.createElement('p');
+        addressText.className = 'mb-0';
+        addressText.textContent = postData.address || 'Address not available';
+        addressText.style.marginLeft = '10px';
 
-      // Like/Dislike container
-      const likeDislikeContainer = document.createElement('div');
-      likeDislikeContainer.className = 'd-flex mt-3 align-items-center';
+        // Like/Dislike container
+        const likeDislikeContainer = document.createElement('div');
+        likeDislikeContainer.className = 'd-flex mt-3 align-items-center';
 
-      // Create spans for displaying the number of likes/dislikes
-      const likeCount = document.createElement('span');
-      likeCount.className = 'ms-2';
-      likeCount.textContent = postData.likes || 0;
+        // Create spans for displaying the number of likes/dislikes
+        const likeCount = document.createElement('span');
+        likeCount.className = 'ms-2';
+        likeCount.textContent = postData.likes || 0;
 
-      const dislikeCount = document.createElement('span');
-      dislikeCount.className = 'ms-2';
-      dislikeCount.textContent = postData.dislikes || 0;
-      const likeButton = document.createElement('button');
-      likeButton.className = 'btn d-flex align-items-center me-2 likeButton reactionButton';
-      likeButton.innerHTML = '<span class="material-icons">thumb_up</span>';
-      likeButton.dataset.postId = postId;
+        const dislikeCount = document.createElement('span');
+        dislikeCount.className = 'ms-2';
+        dislikeCount.textContent = postData.dislikes || 0;
 
-      const dislikeButton = document.createElement('button');
-      dislikeButton.className = 'btn d-flex align-items-center dislikeButton reactionButton';
-      dislikeButton.innerHTML = '<span class="material-icons">thumb_down</span>';
-      dislikeButton.dataset.postId = postId;
+        const likeButton = document.createElement('button');
+        likeButton.className = 'btn d-flex align-items-center me-2 likeButton reactionButton';
+        likeButton.innerHTML = '<span class="material-icons">thumb_up</span>';
+        likeButton.dataset.postId = postId;
 
-      // Append Like/Dislike buttons
-      likeDislikeContainer.appendChild(likeButton);
-      likeDislikeContainer.appendChild(dislikeButton);
+        const dislikeButton = document.createElement('button');
+        dislikeButton.className = 'btn d-flex align-items-center dislikeButton reactionButton';
+        dislikeButton.innerHTML = '<span class="material-icons">thumb_down</span>';
+        dislikeButton.dataset.postId = postId;
 
-      buttonAddressContainer.appendChild(viewMoreButton);
-      buttonAddressContainer.appendChild(addressText);
+        // Append Like/Dislike buttons
+        likeDislikeContainer.appendChild(likeButton);
+        likeDislikeContainer.appendChild(dislikeButton);
 
-      cardBody.appendChild(cardTitle);
-      cardBody.appendChild(cardText);
-      cardBody.appendChild(buttonAddressContainer);
-      card.appendChild(img);
-      card.appendChild(cardBody);
+        buttonAddressContainer.appendChild(viewMoreButton);
+        buttonAddressContainer.appendChild(addressText);
 
-      cardBody.appendChild(likeDislikeContainer);
-      likeButton.appendChild(likeCount);
-      dislikeButton.appendChild(dislikeCount);
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardText);
+        cardBody.appendChild(buttonAddressContainer);
+        card.appendChild(img);
+        card.appendChild(cardBody);
 
-      postContainer.appendChild(card);
+        cardBody.appendChild(likeDislikeContainer);
+        likeButton.appendChild(likeCount);
+        dislikeButton.appendChild(dislikeCount);
 
-      // Add event listeners for like and dislike buttons
-      likeButton.addEventListener("click", () => {
-        updateReaction(postId, "like", likeButton, dislikeButton, likeCount, dislikeCount);
+        postContainer.appendChild(card);
+
+        // Add event listeners for like and dislike buttons
+        likeButton.addEventListener("click", () => {
+          updateReaction(postId, "like", likeButton, dislikeButton, likeCount, dislikeCount);
+        });
+
+        dislikeButton.addEventListener("click", () => {
+          updateReaction(postId, "dislike", likeButton, dislikeButton, likeCount, dislikeCount);
+        });
       });
-      
-      dislikeButton.addEventListener("click", () => {
-        updateReaction(postId, "dislike", likeButton, dislikeButton, likeCount, dislikeCount);
-      });
-
-
+    })
+    .catch((error) => {
+      console.log("Error getting documents: ", error);
     });
-  }).catch((error) => {
-    console.log("Error getting documents: ", error);
-  });
 }
 window.addEventListener('DOMContentLoaded', displayPosts); //Runs the function once the DOM content has loaded
 
@@ -148,7 +151,7 @@ async function updateReaction(postId, reaction, likeButton, dislikeButton, likeC
       // User undislikes the post
       dislikeButton.dataset.reaction = "none";
       dislikesChange = -1;
-  
+
     } else if (currentLikeReaction === "liked") {
       // User switches from like to dislike
       dislikeButton.dataset.reaction = "disliked";
@@ -162,8 +165,6 @@ async function updateReaction(postId, reaction, likeButton, dislikeButton, likeC
     }
     dislikeButton.classList.add("active");
   }
-
-  
   try {
     await postDoc.update({
       likes: firebase.firestore.FieldValue.increment(likesChange),

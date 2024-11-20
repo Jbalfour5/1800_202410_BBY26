@@ -52,6 +52,7 @@ submitPostButton.addEventListener('click', async () => {
     const selectedPriority = document.querySelector('input[name="priority"]:checked').value;
 
     const address = await getAddressFromCoordinates(postLatitude, postLongitude);
+   
 
     //Debugging logs
     console.log("Title:", postTitle);
