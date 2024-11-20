@@ -43,42 +43,62 @@ imageInput.addEventListener('change', function (event) {
 
 //Updating database when submitting a post
 submitPostButton.addEventListener('click', async () => {
+    const db = firebase.firestore();
     const postTitle = document.getElementById('postTitle').value;
     const postDesc = document.getElementById('postDesc').value;
-
     const postLatitude = document.getElementById('postLatitude').value;
     const postLongitude = document.getElementById('postLongitude').value;
-
     const selectedPriority = document.querySelector('input[name="priority"]:checked').value;
 
     const address = await getAddressFromCoordinates(postLatitude, postLongitude);
-   
 
-    //Debugging logs
-    console.log("Title:", postTitle);
-    console.log("Description:", postDesc);
-    console.log("Adress:", address);
-    console.log("Created at:", new Date());
-    console.log("Priority of post:", selectedPriority);
+    // Ensure the current user is signed in
+    const currentUser = firebase.auth().currentUser;
 
-    const post = {
-        title: postTitle, //Name of the post
-        description: postDesc, //Post description
-        longitude: postLongitude, //Longitude of the location 
-        latitude: postLatitude, //Latitude of the location 
-        address: address, //Address the post is associated to
-        createdAt: new Date(), //When the post was created
-        priorityLevel: selectedPriority //The Priority of the post
-    };
-    
-    const db = firebase.firestore();
-    db.collection('posts').add(post)
-        .then((docRef) => {
-            console.log("Post written with ID: ", docRef.id);
-            window.location.reload();
+    if (!currentUser) {
+        console.error("No user is signed in.");
+        return;
+    }
 
-        })
-        .catch((error) => {
-            console.error("Error adding post: ", error);
-        });
+    const userId = currentUser.uid;
+
+    try {
+        // Retrieve the user document
+        const userDoc = await db.collection('users').doc(userId).get();
+
+        if (!userDoc.exists) {
+            console.error(`No document found for user ID: ${userId}`);
+            return;
+        }
+
+        const userData = userDoc.data();
+        const createdBy = userData.name || userData.firstName || "Unknown User";
+
+        //Debugging logs
+        console.log("Title:", postTitle);
+        console.log("Description:", postDesc);
+        console.log("Adress:", address);
+        console.log("Created at:", new Date());
+        console.log("Created by:", createdBy);
+        console.log("Priority of post:", selectedPriority);
+
+        const post = {
+            title: postTitle,  //Name of the post
+            description: postDesc, //Post description
+            longitude: postLongitude, //Longitude of the location
+            latitude: postLatitude, //Latitude of the location 
+            address: address,  //Address the post is associated to
+            createdAt: new Date(), //When the post was created
+            createdBy: createdBy, //Who created the post (saves first name if the user has not set a user name)
+            priorityLevel: selectedPriority, //The Priority of the post
+        };
+
+        // Add the post to the database
+        const docRef = await db.collection('posts').add(post);
+        console.log("Post written with ID: ", docRef.id);
+        window.location.reload();
+
+    } catch (error) {
+        console.error("Error fetching user or creating post:", error);
+    }
 });

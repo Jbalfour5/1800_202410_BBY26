@@ -67,4 +67,3 @@ function saveUserInfo() {
     //c) disable edit 
     document.getElementById('personalInfoFields').disabled = true;
 }
-
