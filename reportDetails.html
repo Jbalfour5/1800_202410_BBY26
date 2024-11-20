@@ -50,70 +50,50 @@
   <!-- Placeholder for navBar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow" id="navbarPlaceholder"></nav>
 
-  <div class="container">
-    <h1><span id="reportName">this place</span></h1>
-    <div class="position-relative">
-      <button class="btn btn-primary position-absolute bottom-0 end-0 m-3"
-        onclick="savePlaceNameDocumentIDAndRedirect()">Write Report</button>
-    </div>
-  </div>
+  <div class="container mt-4">
+    <h1 id="reportTitle"></h1>
+    <p id="reportRating"></p>
+    <p id="reportComments"></p>
+    
+    <!-- Additional report details -->
+    <p id="reportParking"></p>
+    <p id="reportTransportation"></p>
+    <p id="reportAmenities"></p>
+    <p id="reportSafety"></p>
+    <p id="reportCrowding"></p>
+    <p id="reportLighting"></p>
+    <p id="reportAccessibility">
 
-  <div class="container">
-    <h2>Reports:</h2>
-    <div id="details-go-here"></div>
-    <!-- Here is the container for cards with horizontal scrolling -->
-    <div class="card-container">
-      <div id="reportCardGroup" class="row row-cols-auto">
-        <!-- Add your card templates here -->
-      </div>
-    </div>
-  </div>
-
-  <template id="reoprtCardTemplate">
-    <div class="card bg-secondary">
-      <img class="card-img-top">
-      <div class="card-body bg-light">
-        <h5 class="title">placeholder</h5>
-        <p class="star-rating"></p>
-        <p class="time">placeholder</p>
-        <p class="parking">placeholder</p>
-        <p class="transportation">placeholder</p>
-        <p class="amenities">placeholder</p>
-        <p class="crowding">placeholder</p>
-        <p class="lighting">placeholder</p>
-        <p class="accessibility">placeholder</p>
-        <br>
-        <p class="description">This card has supporting text below as a natural lead-in to additional content.
-        </p>
-      </div>
-    </div>
-  </template>
+    <!-- Return button --> 
+     <div class="text-center mt-4"> 
+      <a href="main.html" class="btn btn-secondary">Return</a>
+     </div>
 
 
-  <!-- bottomNavbar -->
-  <nav class="nav shadow-lg" id="bottomNavPlaceholder"></nav>
+      <!-- bottomNavbar -->
+    <nav class="nav shadow-lg" id="bottomNavPlaceholder"></nav>
 
 
 
-  <!---------------------------------------------->
-  <!-- Your own JavaScript functions go here    -->
-  <!---------------------------------------------->
+    <!---------------------------------------------->
+    <!-- Your own JavaScript functions go here    -->
+    <!---------------------------------------------->
 
-  <!-- Link to scripts of your own -->
-  <script src="./scripts/firebaseAPI_TEAM26.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="./scripts/authentication.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
-  <!-- <script src="./scripts/script.js"></script> -->
-  <script src="/scripts/skeleton.js"></script>
-  <script src="/scripts/activeNav.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="/scripts/postToDatabase.js"></script>
-  <script src="/scripts/main.js"></script>
-  <script src="/scripts/mapbox.js"></script>
-  <script src="/scripts/eachReport.js"></script>
-  <script src="/scripts/report.js"></script>
+    <!-- Link to scripts of your own -->
+    <script src="./scripts/firebaseAPI_TEAM26.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="./scripts/authentication.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+    <!-- <script src="./scripts/script.js"></script> -->
+    <script src="/scripts/skeleton.js"></script>
+    <script src="/scripts/activeNav.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/scripts/postToDatabase.js"></script>
+    <script src="/scripts/main.js"></script>
+    <script src="/scripts/mapbox.js"></script>
+    <script src="/scripts/eachReport.js"></script>
+    <script src="/scripts/report.js"></script>
 
 
 

@@ -93,6 +93,34 @@
     </form>
   </div>
 
+  <!-- <div class="container mt-4">
+    <h2>Reports:</h2>
+    <div class="row" id="reportContainer"></div>
+  </div> -->
+
+  <div class="container mt-4">
+    <h2>Reports:</h2>
+  
+    <!-- Date Filter -->
+    <div class="form-group">
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" class="form-control">
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" class="form-control">
+      <button class="btn btn-primary mt-2" onclick="filterReportsByDate()">Filter</button>
+    </div>
+
+    <br>
+  
+    <div class="row" id="reportContainer"></div>
+  </div>
+  
+  
+
+
+  
+
+
   <!-- PlaceHolder for bottom Navbar -->
   <nav class="nav shadow-lg" id="bottomNavPlaceholder"></nav>
 
@@ -131,6 +159,7 @@
   <script src="/scripts/main.js"></script>
   <script src="/scripts/mapbox.js"></script>
   <script src="/scripts/logout.js"></script>
+  <script src="/scripts/eachReport.js"></script>
 
 </body>
 

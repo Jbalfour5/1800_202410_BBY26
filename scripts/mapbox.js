@@ -169,3 +169,6 @@ function addPostMarkersToMap() {
         console.error("Error fetching posts:", error);
     });
 }
+
+
+
