@@ -183,13 +183,10 @@ function addPostMarkersToMap() {
     });
 }
 
-<<<<<<< HEAD
 
 
-=======
 function toggleLegend() {
     const legend = document.getElementById('legendDrawer');
     legend.classList.toggle('open');
   }
   
->>>>>>> 6c6a12885402df9e0254b4ef66cc18b67986f4b8

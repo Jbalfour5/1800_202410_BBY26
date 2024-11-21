@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 function displayReportDetails() {
     let params = new URLSearchParams(window.location.search);
     let reportID = params.get("id");
@@ -36,9 +35,6 @@ window.addEventListener('DOMContentLoaded', displayReportDetails);
 
 
 
-=======
-//Displays the report window depending on the document ID
->>>>>>> 6c6a12885402df9e0254b4ef66cc18b67986f4b8
 function displayReportInfo() {
     let params = new URL(window.location.href);
     let ID = params.searchParams.get("docID");
