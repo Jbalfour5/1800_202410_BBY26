@@ -1,11 +1,8 @@
-//---------------------------------------------------
-// This function loads the parts of your skeleton 
-// (navbar, footer, and other things) into html doc. 
-//---------------------------------------------------
+//Loads the navbar and other skeletal items depending on user state
 function loadSkeleton() {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            // User is signed in
+            // User IS signed in
             $('#navbarPlaceholder').load('./navbarAfterLogin.html', function() {
                 activateNav();
             });
@@ -13,6 +10,7 @@ function loadSkeleton() {
                 activateNav();
             });
         } else {
+            //User NOT signed in
             $('#navbarPlaceholder').load('./navbarBeforeLogin.html', function() {
                 activateNav();
             });
@@ -21,6 +19,7 @@ function loadSkeleton() {
     });
 }
 
+//Runs the function once the window has loaded
 window.onload = function() {
     loadSkeleton();
 };

@@ -3,12 +3,12 @@ console.log(reportDocID);
 
 function getReportName(id) {
     db.collection("reports")
-      .doc(id)
-      .get()
-      .then((thisReport) => {
-        var reportName = thisReport.data().name;
-        document.getElementById("reportName").innerHTML = reportName;
-          });
+        .doc(id)
+        .get()
+        .then((thisReport) => {
+            var reportName = thisReport.data().name;
+            document.getElementById("reportName").innerHTML = reportName;
+        });
 }
 
 getReportName(reportDocID);
@@ -45,7 +45,7 @@ function writeReport() {
     let placeLighting = document.getElementById("lighting").value;
     let placeAccessibility = document.getElementById("accessibility").value;
     let placeDescription = document.getElementById("description").value;
-  
+
     // Get the star rating
     // Get all the elements with the class "star" and store them in the 'stars' variable
     const stars = document.querySelectorAll('.star');
@@ -59,14 +59,14 @@ function writeReport() {
             placeRating++;
         }
     });
-  
+
     console.log(placeTitle, placeParking, placeTransportation, placeAmenities, placeSafetyMeasures, placeCrowding, placeLighting, placeAccessibility, placeDescription);
-  
+
     var user = firebase.auth().currentUser;
     if (user) {
         var currentUser = db.collection("users").doc(user.uid);
         var userID = user.uid;
-  
+
         // Get the document for the current user.
         db.collection("reports").add({
             reportDocID: reportDocID,
@@ -89,7 +89,7 @@ function writeReport() {
         console.log("No user is signed in");
         window.location.href = 'report.html';
     }
-  }
+}
 
 
 

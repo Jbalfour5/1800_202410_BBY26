@@ -10,13 +10,15 @@ const map = new mapboxgl.Map({
     attributionControl: false
 });
 
+//Adds post markers once map is loaded in
 map.on('load', () => {
     console.log('Map load complete');
-    
+
     addPostMarkersToMap();
 });
 
 map.addControl(new mapboxgl.AttributionControl(), 'top-left');
+
 //Check for location, fly to user on load up
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {
@@ -65,7 +67,7 @@ map.addControl(zoomRotate, 'top-left');
 const createPostButton = document.getElementById('createPostButton');
 createPostButton.addEventListener('click', function () {
     isCreatingPost = true;
-    map.getCanvas().style.cursor = 'pointer';   
+    map.getCanvas().style.cursor = 'pointer';
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -83,8 +85,8 @@ createPostButton.addEventListener('click', function () {
 
 
 //Default marker placement
-let marker = new mapboxgl.Marker({ draggable: true })
-    .setLngLat([-77.04, 38.907]) 
+let marker = new mapboxgl.Marker({ draggable: true, color: "#0d6efd" })
+    .setLngLat([-77.04, 38.907])
     .addTo(map);
 let isCreatingPost = false;
 
@@ -93,8 +95,8 @@ map.on('click', function (e) {
     if (isCreatingPost) {
         const lat = e.lngLat.lat;
         const lng = e.lngLat.lng;
-        marker.setLngLat([lng, lat]); 
-        marker.getElement().style.display = 'block'; 
+        marker.setLngLat([lng, lat]);
+        marker.getElement().style.display = 'block';
         map.flyTo({
             center: [lng, lat],
             zoom: 15,
@@ -116,7 +118,7 @@ function getAddressFromCoordinates(latitude, longitude) {
         .then(response => response.json())
         .then(data => {
             if (data.features && data.features.length > 0) {
-                return data.features[0].place_name; 
+                return data.features[0].place_name;
             } else {
                 return 'Address not found';
             }
@@ -125,41 +127,52 @@ function getAddressFromCoordinates(latitude, longitude) {
             console.error('Error fetching address:', error);
             return 'Error fetching address';
         });
-
-        
 }
- 
+
+//Adds markers to the map with infromation on each post
 function addPostMarkersToMap() {
-    const db = firebase.firestore(); 
+    const db = firebase.firestore();
     console.log('Attempting to fetch posts from Firestore');
-    
+
     db.collection('posts').get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             const post = doc.data();
-            const latitude = parseFloat(post.latitude);  
+            const latitude = parseFloat(post.latitude);
             const longitude = parseFloat(post.longitude);
-            const title = post.title; 
+            const title = post.title;
             const description = post.description;
             const address = post.address;
+            const priority = post.priorityLevel;
 
-            console.log('Fetched post data:', post); // Log the data to check
-            
+            console.log('Fetched post data:', post);
+
             if (latitude && longitude) {
-                const marker = new mapboxgl.Marker()
-                    .setLngLat([longitude, latitude]) // Use the numeric values
+
+                const priorityColors = {
+                    "Not Applicable": "#6c757d",
+                    "Low Priority": "#198754",
+                    "Moderate Priority": "#dea702",
+                    "Top Priority": "#dc3545",
+                };
+
+                const markerColor = priorityColors[priority] || "#0d6efd"; //Default color 
+
+                const marker = new mapboxgl.Marker({ color: markerColor })
+                    .setLngLat([longitude, latitude])
                     .addTo(map);
-        
-                    const popup = new mapboxgl.Popup({ offset: 25 })
+
+                const popup = new mapboxgl.Popup({ offset: 25 })
                     .setHTML(`
                         <h5>${title}</h5>
                         <p>${description}</p>
                         <p><strong>Location:</strong> ${address}</p>
+                        <p><strong>Priority:</strong> ${priority}</p>
                         <div style="text-align: center;">
-                            <a href="postDetails.html?postId=${doc.id}" class="btn btn-primary">View Post</a>
+                            <a href="postDetails.html?id=${doc.id}" class="btn btn-primary">View Post</a>
                         </div>
                     `);
                 marker.setPopup(popup);
-                
+
                 marker.setPopup(popup);
             } else {
                 console.error('Invalid coordinates:', latitude, longitude);
@@ -170,5 +183,13 @@ function addPostMarkersToMap() {
     });
 }
 
+<<<<<<< HEAD
 
 
+=======
+function toggleLegend() {
+    const legend = document.getElementById('legendDrawer');
+    legend.classList.toggle('open');
+  }
+  
+>>>>>>> 6c6a12885402df9e0254b4ef66cc18b67986f4b8

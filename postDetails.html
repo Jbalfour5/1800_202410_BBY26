@@ -30,8 +30,7 @@
   <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
   <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
 
@@ -42,15 +41,21 @@
 
 <body>
 
-  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.min.js"></script>
-  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.css" type="text/css">
+  <script
+    src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.min.js"></script>
+  <link rel="stylesheet"
+    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.css" type="text/css">
 
 
   <!-- Placeholder for Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow" id="navbarPlaceholder"></nav>
 
   <!--Content-->
-  
+  <h1 id="postTitle" class="text-center mt-3">Fetching Post Title...</h3>
+  <p id="postDescription" class="text-center mt-3"><strong>Address:</strong>Fetching addres...</p>
+  <p id="postPriority" class="text-center mt-3"><strong>Priority:</strong> Fetching priority..</p>
+  <p id="postLocation" class="text-center mt-3">Fetching post description...</p>
+
   <!-- PlaceHolder for bottom Navbar -->
   <nav class="nav shadow-lg" id="bottomNavPlaceholder"></nav>
 
@@ -58,33 +63,18 @@
   <!-- Your own JavaScript functions go here    -->
   <!---------------------------------------------->
 
-    <!-- Link to scripts of your own -->
-    <script src="./scripts/firebaseAPI_TEAM26.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="./scripts/authentication.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
-    <!-- <script src="./scripts/script.js"></script> -->
-    <script src="/scripts/skeleton.js"></script>
-    <script src="/scripts/activeNav.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-        $('#createPostButton').click(function() {
-            $('#postForm').addClass('show'); 
-            $('#postForm').removeClass('hide'); 
-        });
-        $('#submitPostButton').click(function() {
-            $('#postForm').addClass('hide');
-            $('#postForm').removeClass('show'); 
-        
-        });
-    });
-    </script>
-    <script src="/scripts/postToDatabase.js"></script>
-    <script src="/scripts/main.js"></script>
-    <script src="/scripts/mapbox.js"></script>
-    <script src="/scripts/logout.js"></script>
+  <!-- Link to scripts of your own -->
+  <script src="./scripts/firebaseAPI_TEAM26.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+  <!-- <script src="./scripts/script.js"></script> -->
+  <script src="/scripts/skeleton.js"></script>
+  <script src="/scripts/activeNav.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="/scripts/logout.js"></script>
+  <script src="/scripts/main.js"></script>
+  <script src="/scripts/postDetails.js"></script>
 
 </body>
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function displayReportDetails() {
     let params = new URLSearchParams(window.location.search);
     let reportID = params.get("id");
@@ -35,12 +36,14 @@ window.addEventListener('DOMContentLoaded', displayReportDetails);
 
 
 
+=======
+//Displays the report window depending on the document ID
+>>>>>>> 6c6a12885402df9e0254b4ef66cc18b67986f4b8
 function displayReportInfo() {
-    let params = new URL(window.location.href); //get URL of search bar
-    let ID = params.searchParams.get("docID"); //get value for key "id"
+    let params = new URL(window.location.href);
+    let ID = params.searchParams.get("docID");
     console.log(ID);
 
-    // doublecheck: is your collection called "Reviews" or "reviews"?
     db.collection("reports")
         .doc(ID)
         .get()
@@ -49,30 +52,29 @@ function displayReportInfo() {
             reportCode = thisReport.code;
             reportName = doc.data().name;
 
-            // only populate title, and image
             document.getElementById("reportName").innerHTML = reportName;
         });
 }
+displayReportInfo(); //Runs the function
 
-displayReportInfo();
-
+//Saves the place and document ID to local storage and redirects the user
 function savePlaceNameDocumentIDAndRedirect() {
-    let params = new URL(window.location.href) //get the url from the search bar
+    let params = new URL(window.location.href)
     let ID = params.searchParams.get("docID");
     localStorage.setItem('reportDocID', ID);
     window.location.href = 'report.html';
 }
 
-
+//Populates the report html page with all reports for a specific place
 function populateReports() {
     console.log("test");
     let reportCardTemplate = document.getElementById("reportCardTemplate");
     let reportCardGroup = document.getElementById("reportCardGroup");
 
-    let params = new URL(window.location.href); // Get the URL from the search bar
+    let params = new URL(window.location.href);
     let reportID = params.searchParams.get("docID");
 
-    // Double-check: is your collection called "Reviews" or "reviews"?
+
     db.collection("reports")
         .where("reportDocID", "==", reportID)
         .get()
@@ -89,7 +91,7 @@ function populateReports() {
                 var accessibility = doc.data().accessibility;
                 var description = doc.data().description;
                 var time = doc.data().timestamp.toDate();
-                var rating = doc.data().rating; // Get the rating value
+                var rating = doc.data().rating;
                 console.log(rating)
 
                 console.log(time);
@@ -108,15 +110,12 @@ function populateReports() {
                 reportCard.querySelector(".description").innerHTML = `Description: ${description}`;
 
 
-                // Populate the star rating based on the rating value
-
-                // Initialize an empty string to store the star rating HTML
                 let starRating = "";
-                // This loop runs from i=0 to i<rating, where 'rating' is a variable holding the rating value.
+
                 for (let i = 0; i < rating; i++) {
                     starRating += '<span class="material-icons">star</span>';
                 }
-                // After the first loop, this second loop runs from i=rating to i<5.
+
                 for (let i = rating; i < 5; i++) {
                     starRating += '<span class="material-icons">star_outline</span>';
                 }
@@ -126,5 +125,4 @@ function populateReports() {
             });
         });
 }
-
-populateReports();
+populateReports(); //Runs the function
