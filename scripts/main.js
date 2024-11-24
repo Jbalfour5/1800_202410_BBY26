@@ -192,97 +192,121 @@ async function updateReaction(postId, reaction, likeButton, dislikeButton, likeC
 //-------------------------------------------------------------
 
 
-function displayReports() {
-  const reportContainer = document.getElementById('reportContainer');
-
-  db.collection("reports").get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-          const reportData = doc.data();
-
-          // Create a Bootstrap card for each report
-          const card = document.createElement('div');
-          card.className = 'card mb-4 col-md-4';
-
-          const cardBody = document.createElement('div');
-          cardBody.className = 'card-body';
-
-          const cardTitle = document.createElement('h5');
-          cardTitle.className = 'card-title';
-          cardTitle.textContent = reportData.title;
-
-          const cardText = document.createElement('p');
-          cardText.className = 'card-text';
-          cardText.textContent = `Rating: ${reportData.rating}/5`;
-
-          const cardFooter = document.createElement('p');
-          cardFooter.className = 'card-text';
-          cardFooter.textContent = `Comments: ${reportData.commentsFeedback}`;
-
-          cardBody.appendChild(cardTitle);
-          cardBody.appendChild(cardText);
-          cardBody.appendChild(cardFooter);
-          card.appendChild(cardBody);
-
-          reportContainer.appendChild(card);
-      });
-  }).catch((error) => {
-      console.log("Error getting documents: ", error);
-  });
-}
-
-window.addEventListener('DOMContentLoaded', displayReports);
-
-
-
-//-------
+let reportIDToDelete = null;
+let deleteModal = null;
 
 function displayReports() {
-  const reportContainer = document.getElementById('reportContainer');
-  reportContainer.innerHTML = ''; // Clear previous content
+    const reportContainer = document.getElementById('reportContainer');
+    reportContainer.innerHTML = ''; // Clear previous content
 
-  db.collection("reports").get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-          const reportData = doc.data();
+    console.log("Fetching reports from Firestore...");
 
-          // Create a Bootstrap card for each report
-          const card = document.createElement('div');
-          card.className = 'card mb-4 col-md-4';
+    db.collection("reports")
+        .orderBy("timestamp", "desc") // Order by timestamp in descending order
+        .get()
+        .then((querySnapshot) => {
+            console.log("Reports fetched:", querySnapshot.size);
 
-          const cardBody = document.createElement('div');
-          cardBody.className = 'card-body';
+            querySnapshot.forEach((doc) => {
+                const reportData = doc.data();
+                console.log("Report Data:", reportData);
 
-          const cardTitle = document.createElement('h5');
-          cardTitle.className = 'card-title';
-          cardTitle.textContent = reportData.title;
+                // Fetch user details
+                db.collection("users").doc(reportData.userID).get().then((userDoc) => {
+                    if (userDoc.exists) {
+                        const userData = userDoc.data();
+                        console.log("User Data:", userData);
 
-          const cardText = document.createElement('p');
-          cardText.className = 'card-text';
-          cardText.textContent = `Rating: ${reportData.rating}/5`;
+                        // Create a Bootstrap card for each report
+                        const card = document.createElement('div');
+                        card.className = 'card mb-4 col-md-4';
 
-          const cardFooter = document.createElement('p');
-          cardFooter.className = 'card-text';
-          cardFooter.textContent = `Comments: ${reportData.commentsFeedback}`;
+                        const cardBody = document.createElement('div');
+                        cardBody.className = 'card-body';
 
-          // Create the Read More button
-          const readMoreButton = document.createElement('a');
-          readMoreButton.className = 'btn btn-primary';
-          readMoreButton.textContent = 'Read More';
-          readMoreButton.href = `reportDetails.html?id=${doc.id}`;
+                        const cardTitle = document.createElement('h5');
+                        cardTitle.className = 'card-title';
+                        cardTitle.textContent = reportData.title;
 
-          cardBody.appendChild(cardTitle);
-          cardBody.appendChild(cardText);
-          cardBody.appendChild(cardFooter);
-          cardBody.appendChild(readMoreButton);
-          card.appendChild(cardBody);
+                        const cardText = document.createElement('p');
+                        cardText.className = 'card-text';
+                        cardText.textContent = `Rating: ${reportData.rating}/5`;
 
-          reportContainer.appendChild(card);
-      });
-  }).catch((error) => {
-      console.log("Error getting documents: ", error);
-  });
+                        const cardFooter = document.createElement('p');
+                        cardFooter.className = 'card-text';
+                        cardFooter.textContent = `Comments: ${reportData.commentsFeedback}`;
+
+                        const cardDate = document.createElement('p');
+                        cardDate.className = 'card-text';
+                        cardDate.textContent = `Date: ${reportData.timestamp.toDate().toLocaleString()}`;
+
+                        const cardUser = document.createElement('p');
+                        cardUser.className = 'card-text';
+                        cardUser.textContent = `Created by: ${userData.firstName} ${userData.lastName}`;
+
+                        // Create the Read More button
+                        const readMoreButton = document.createElement('a');
+                        readMoreButton.className = 'btn btn-primary';
+                        readMoreButton.textContent = 'Read More';
+                        readMoreButton.href = `reportDetails.html?id=${doc.id}`;
+
+                        cardBody.appendChild(cardTitle);
+                        cardBody.appendChild(cardText);
+                        cardBody.appendChild(cardFooter);
+                        cardBody.appendChild(cardDate);
+                        cardBody.appendChild(cardUser);
+                        cardBody.appendChild(readMoreButton);
+
+                        // Check if the current user is the creator of the report
+                        firebase.auth().onAuthStateChanged((user) => {
+                            if (user && user.uid === reportData.userID) {
+                                const deleteButton = document.createElement('button');
+                                deleteButton.className = 'btn btn-danger ml-2';
+                                deleteButton.textContent = 'Delete';
+                                deleteButton.onclick = () => {
+                                    reportIDToDelete = doc.id;
+                                    deleteModal.show();
+                                };
+                                cardBody.appendChild(deleteButton);
+                            }
+                        });
+
+                        card.appendChild(cardBody);
+                        reportContainer.appendChild(card);
+                    } else {
+                        console.log(`User document not found: ${reportData.userID}`);
+                    }
+                }).catch((error) => {
+                    console.log("Error getting user document: ", error);
+                });
+            });
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+        });
 }
 
-window.addEventListener('DOMContentLoaded', displayReports);
+window.addEventListener('DOMContentLoaded', () => {
+    displayReports();
+    deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'), {
+        backdrop: 'static',
+        keyboard: false
+    });
+});
+
+document.getElementById('confirmDeleteButton').onclick = () => {
+    if (reportIDToDelete) {
+        db.collection("reports").doc(reportIDToDelete).delete().then(() => {
+            console.log("Document successfully deleted!");
+            reportIDToDelete = null;
+            displayReports(); // Refresh the list of reports
+            deleteModal.hide(); // Hide the modal
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+        });
+    }
+};
+
 
 
 //-------
