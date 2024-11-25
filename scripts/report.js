@@ -1,6 +1,11 @@
 var reportDocID = localStorage.getItem("reportDocID");
 console.log(reportDocID);
 
+/**
+ * Fetches the name of a report from the Firestore database using its document ID and updates the DOM.
+ *
+ * @param {string} id - The document ID of the report to retrieve
+ */
 function getReportName(id) {
     db.collection("reports")
         .doc(id)
@@ -20,6 +25,10 @@ getReportName(reportDocID);
 // Select all elements with the class name "star" and store them in the "stars" variable
 const stars = document.querySelectorAll('.star');
 
+/**
+ * Adds click functionality to star elements to allow users to rate a report.
+ * Fills in the clicked star and all stars before it when a star is clicked.
+ */
 // Iterate through each star element
 stars.forEach((star, index) => {
     // Add a click event listener to the current star

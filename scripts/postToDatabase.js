@@ -41,7 +41,13 @@ imageInput.addEventListener('change', function (event) {
 });
 
 
-//Updating database when submitting a post
+/**
+ * Submits a post with the provided title, description, location, priority level, and user details.
+ * 
+ * This function is trigged when the submitPostButton is clicked. 
+ * It retrieves the values for the corresponding fields and saves the information into a posts document into the Firestore database.
+ * 
+ */
 submitPostButton.addEventListener('click', async () => {
     const db = firebase.firestore();
     const postTitle = document.getElementById('postTitle').value;

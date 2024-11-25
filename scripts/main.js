@@ -1,4 +1,20 @@
-//Display posts from database
+/**
+ * Fetches and displays posts from the Firebase firestore database.
+ * 
+ * This function retrieves the posts from the 'posts' collection within Firestore, 
+ * orders them by creation date in descending order (newest-oldest)
+ * and dynamically generates bootstrap cards to display each post.
+ * The bootstrap cards contain a:
+ *  - title
+ *  - description
+ *  - image
+ *  - address
+ *  - like/dislike button
+ *  - author box
+ * 
+ * This function also sets up event listeners for the like and dislike buttons to handle user reactions.
+ * 
+ */
 function displayPosts() {
   const postContainer = document.querySelector('.postContainer');
 
@@ -10,7 +26,6 @@ function displayPosts() {
         const postData = doc.data();
         const postId = doc.id;
 
-        // Create a Bootstrap card for each post
         const card = document.createElement('div');
         card.className = 'card mb-4 col-md-3';
 
@@ -29,7 +44,6 @@ function displayPosts() {
         cardText.className = 'card-text';
         cardText.textContent = postData.description;
 
-        // Container for the button and address
         const buttonAddressContainer = document.createElement('div');
         buttonAddressContainer.className = 'd-flex justify-content-between align-items-center mt-3';
 
@@ -43,11 +57,9 @@ function displayPosts() {
         addressText.textContent = postData.address || 'Address not available';
         addressText.style.marginLeft = '10px';
 
-        // Like/Dislike container
         const likeDislikeContainer = document.createElement('div');
         likeDislikeContainer.className = 'd-flex mt-3 align-items-center';
 
-        // Create spans for displaying the number of likes/dislikes
         const likeCount = document.createElement('span');
         likeCount.className = 'ms-2';
         likeCount.textContent = postData.likes || 0;
@@ -70,7 +82,7 @@ function displayPosts() {
         author.className = 'mt-3 text-muted'
         author.innerHTML = `Created by: ${postData.createdBy}`;
 
-        // Append Like/Dislike buttons
+
         likeDislikeContainer.appendChild(likeButton);
         likeDislikeContainer.appendChild(dislikeButton);
 
@@ -88,10 +100,8 @@ function displayPosts() {
         likeButton.appendChild(likeCount);
         dislikeButton.appendChild(dislikeCount);
        
-
         postContainer.appendChild(card);
-        
-
+      
         // Add event listeners for like and dislike buttons
         likeButton.addEventListener("click", () => {
           updateReaction(postId, "like", likeButton, dislikeButton, likeCount, dislikeCount);
@@ -106,9 +116,17 @@ function displayPosts() {
       console.log("Error getting documents: ", error);
     });
 }
-window.addEventListener('DOMContentLoaded', displayPosts); //Runs the function once the DOM content has loaded
 
-//Handles the showing and hiding of the form when hitting create post
+//Triggers the displayPosts function once the DOM content has fully loaded
+window.addEventListener('DOMContentLoaded', displayPosts); 
+
+/**
+ * Handles the showing and hiding of the post creation form.
+ * 
+ * This function alters the visibility of the post creation by 
+ * adding and removing the show and hide classes to the form 
+ * when the user clicks the create post button, submit button or the close button.
+ */
 $(document).ready(function () {
   $('#createPostButton').click(function () {
     $('#postForm').addClass('show');
@@ -124,6 +142,20 @@ $(document).ready(function () {
   });
 });
 
+/**
+ * Updates the users reaction (like or dislike) for any given post.
+ * 
+ * This function updates the like and dislike counts for a post based on the user's reaction (like or dislike).
+ * It adjusts the dataset for the buttons accordingly 
+ * and ensure the like and dislike buttons are mutually exclusive (can only do one or the other). 
+ * 
+ * @param {string} postId - ID of the post being reacted to
+ * @param {string} reaction - Reaction type (like or dislike)
+ * @param {HTMLElement} likeButton - DOM element for the like button
+ * @param {HTMLElement} dislikeButton - DOM element for the dislike button
+ * @param {HTMLElement} likeCount - DOM element displaying the like count
+ * @param {HTMLElement} dislikeCount - DOM element displaying the dislike count
+ */
 async function updateReaction(postId, reaction, likeButton, dislikeButton, likeCount, dislikeCount) {
   const postDoc = db.collection("posts").doc(postId);
 
@@ -234,8 +266,17 @@ window.addEventListener('DOMContentLoaded', displayReports);
 
 
 
-//-------
-
+/**
+ * Fetches and displays reports from the Firebase firestore database.
+ * 
+ * This function retrieves the reports from the 'reports' collection within Firestore
+ * and dynamically generates bootstrap cards to display each post.
+ * The bootstrap cards contain a:
+ *  - title
+ *  - rating
+ *  - body contaning the comment/feedback
+ * 
+ */
 function displayReports() {
   const reportContainer = document.getElementById('reportContainer');
   reportContainer.innerHTML = ''; // Clear previous content
@@ -282,11 +323,21 @@ function displayReports() {
   });
 }
 
+//Triggers the displayReports function once the DOM content has fully loaded
 window.addEventListener('DOMContentLoaded', displayReports);
 
-
-//-------
-
+/**
+ * Filters the reports displayed by a user-defined time window.
+ * 
+ * This function retrieves the start and end dates from the input fields and uses them
+ * to query the Firestore database for reports that have a timestamp within the specified range.
+ * It then dynamically generates a Bootstrap card for each report, displaying the title, rating, 
+ * comments, and a "Read More" button that links to the detailed report page.
+ * 
+ * If there are no reports within the selected date range, the report container is cleared,
+ * and the filtered reports are displayed. Any errors encountered during the Firestore query 
+ * are logged to the console.
+ */
 function filterReportsByDate() {
   const startDate = document.getElementById('startDate').value;
   const endDate = document.getElementById('endDate').value;

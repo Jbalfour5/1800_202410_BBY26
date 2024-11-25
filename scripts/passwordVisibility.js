@@ -1,4 +1,10 @@
-//Toggling password visibility with an icon on login/signup
+/**
+ * Toggles the visibility for the passwordInput field.
+ * 
+ * This function allows the user to change the 
+ * passwordInput field from a regular text field to a password field hiding the input.
+ * This is acheived 
+ */
 function togglePassword() {
   const passwordField = document.getElementById("passwordInput");
   const toggleIcon = document.getElementById("toggleIcon");

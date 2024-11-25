@@ -1,4 +1,11 @@
-var currentUser;               //points to the document of the user who is logged in
+var currentUser; //points to the document of the user who is logged in
+/**
+ * Populates the user information fields with data retrieved from the Firebase Firestore database.
+ * 
+ * This function listens for changes in the Firebase authentication state. When a user is logged in, 
+ * it retrieves the user's document from Firestore, extracts relevant data fields (name, age, city, etc.), 
+ * and populates corresponding form fields in the UI.
+ */
 function populateUserInfo() {
     firebase.auth().onAuthStateChanged(user => {
         // Check if user is signed in:
@@ -68,6 +75,23 @@ function saveUserInfo() {
     document.getElementById('personalInfoFields').disabled = true;
 }
 
+/**
+ * Fetches and displays posts from the Firebase firestore database.
+ * 
+ * This function retrieves the posts from the 'posts' collection within Firestore, 
+ * orders them by creation date in descending order (newest-oldest)
+ * and dynamically generates bootstrap cards to display each post.
+ * The bootstrap cards contain a:
+ *  - title
+ *  - description
+ *  - image
+ *  - address
+ *  - like/dislike button
+ *  - author box
+ * 
+ * This function also sets up event listeners for the like and dislike buttons to handle user reactions.
+ * 
+ */
 function displayPosts() {
     // Wait until Firebase auth state is fully initialized
     firebase.auth().onAuthStateChanged(user => {
@@ -184,4 +208,5 @@ function displayPosts() {
     });
 }
 
-window.addEventListener('DOMContentLoaded', displayPosts); // Runs the function once the DOM content has loaded
+//Triggers the displayPosts function once the DOM content has fully loaded
+window.addEventListener('DOMContentLoaded', displayPosts); 

@@ -1,4 +1,12 @@
-//Setting the color of the bottom navbar icons to an accent color if the links href matches the current page
+/**
+ * Highlights the active navigation link in the bottom navbar.
+ * 
+ * This function compares the href attribute of each anchor tag in the 
+ * bottomNavbar.html to the current pages file name.
+ * If they match, the navLinkActive class is 
+ * added to the corresponding anchor to visually distinguish the active selection.
+ * 
+ */
 function activateNav() {
     const navLinks = document.querySelectorAll('.navLink');
     const currentPage = window.location.pathname.split('/').pop();

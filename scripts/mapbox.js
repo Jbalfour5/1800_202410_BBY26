@@ -16,7 +16,6 @@ map.on('load', () => {
 
     addPostMarkersToMap();
 });
-
 map.addControl(new mapboxgl.AttributionControl(), 'top-left');
 
 //Check for location, fly to user on load up
@@ -63,8 +62,16 @@ const zoomRotate = new mapboxgl.NavigationControl({
 });
 map.addControl(zoomRotate, 'top-left');
 
-//When creating post, new mapbox with ability to place map pins
+
 const createPostButton = document.getElementById('createPostButton');
+
+/**
+ * Event listener for creating a new post on the map.
+ * 
+ * This function listens for a click event on the createPostButton. 
+ * It then checks the users geolocation and moves the map to the users location
+ * to facilitate the creation of a new post.
+ */
 createPostButton.addEventListener('click', function () {
     isCreatingPost = true;
     map.getCanvas().style.cursor = 'pointer';
@@ -83,14 +90,21 @@ createPostButton.addEventListener('click', function () {
     }
 });
 
-
 //Default marker placement
 let marker = new mapboxgl.Marker({ draggable: true, color: "#0d6efd" })
     .setLngLat([-77.04, 38.907])
     .addTo(map);
 let isCreatingPost = false;
 
-//Adding the map pin on click and saving its longitude and latitude
+/**
+ * Handles the click event on the map to select a location for the new post.
+ * 
+ * This function allows the user to click anywhere on the map to place a marker
+ * at that location. It also updates the hidden input field with the latitude and longitude 
+ * and moves the map to the users selected location.
+ * 
+ * @param {object} e - The click event on the map
+ */
 map.on('click', function (e) {
     if (isCreatingPost) {
         const lat = e.lngLat.lat;
@@ -109,7 +123,17 @@ map.on('click', function (e) {
     }
 });
 
-//Convert longitude and latitude to address for database / printing
+/**
+ * 
+ * Retreives and address from geographic coordinates using the mapbox Geocoding API.
+ * 
+ * This function takes a latitude and longitude as input and returns an associated address using the 
+ * mapbox geocoding API.
+ * 
+ * @param {number} latitude - The latitude of the post
+ * @param {number} longitude - The longitude of the post
+ * @returns {Promise<string>} - A promise that resolves to the address or an error message
+ */
 function getAddressFromCoordinates(latitude, longitude) {
     const accessToken = 'pk.eyJ1IjoiamJhbGZvdXI1IiwiYSI6ImNtMnV0MnZxbzA1OTEya29iZG95NDgxaHgifQ.48MC1AtpUWyZww1hh6s7Iw';
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${accessToken}`;
@@ -129,7 +153,13 @@ function getAddressFromCoordinates(latitude, longitude) {
         });
 }
 
-//Adds markers to the map with infromation on each post
+/**
+ * Adds markers for posts stored in Firestore onto the map.
+ * 
+ * This function retreives post data from Friestore and places markers on the map for each post.
+ * The markers are color-coded based on priority level of the post and each marker has a popup
+ * that displays the posts title, description, address and priority as well as a view post button. 
+ */
 function addPostMarkersToMap() {
     const db = firebase.firestore();
     console.log('Attempting to fetch posts from Firestore');
@@ -183,10 +213,14 @@ function addPostMarkersToMap() {
     });
 }
 
-
-
+/**
+ * Toggles the legend drawer.
+ * 
+ * This function toggles the open class on the legendDrawer HTML element 
+ * allowing the user to open and close the legend.
+ */
 function toggleLegend() {
     const legend = document.getElementById('legendDrawer');
     legend.classList.toggle('open');
-  }
-  
+}
+

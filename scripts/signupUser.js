@@ -4,6 +4,10 @@ let firstNameInput = document.getElementById('firstNameInput');
 let lastNameInput = document.getElementById('lastNameInput');
 let loginForm = document.getElementById('login-form');
 
+/**
+ * Handles the user registration process when the form is submitted.
+ * @param {Event} evt - The event object triggered by form submission.
+ */
 let RegisterUser = evt => {
   evt.preventDefault();
 

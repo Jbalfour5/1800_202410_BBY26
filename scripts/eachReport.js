@@ -1,3 +1,12 @@
+/**
+ * Displays the details of a specific report on the page.
+ * 
+ * This function extracts the report ID from the URL parameters, 
+ * retreives the corresponding data for that report from the firestore database 
+ * and populates different page elements with the report information. 
+ * It also handles cases where the report ID is invalid or the data retreival fails.
+ * 
+ */
 function displayReportDetails() {
     let params = new URLSearchParams(window.location.search);
     let reportID = params.get("id");
@@ -26,15 +35,12 @@ function displayReportDetails() {
     }
 }
 
+//Triggers the displayReportDetails function once the DOM content has fully loaded
 window.addEventListener('DOMContentLoaded', displayReportDetails);
 
-
-
-
-
-
-
-
+/**
+ * 
+ */
 function displayReportInfo() {
     let params = new URL(window.location.href);
     let ID = params.searchParams.get("docID");
