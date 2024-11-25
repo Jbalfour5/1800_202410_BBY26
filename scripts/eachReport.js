@@ -37,6 +37,7 @@ function displayReportDetails() {
 
 //Triggers the displayReportDetails function once the DOM content has fully loaded
 window.addEventListener('DOMContentLoaded', displayReportDetails);
+<<<<<<< HEAD
 
 /**
  * 
@@ -128,3 +129,5 @@ function populateReports() {
         });
 }
 populateReports(); //Runs the function
+=======
+>>>>>>> 6fbe03ebc57164bac5410e021e3995956a181136
