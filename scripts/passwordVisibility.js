@@ -8,7 +8,7 @@
 function togglePassword() {
   const passwordField = document.getElementById("passwordInput");
   const toggleIcon = document.getElementById("toggleIcon");
-
+a
   if (passwordField.type === "password") {
     passwordField.type = "text";
     toggleIcon.src = "images/passwordhidden.png";

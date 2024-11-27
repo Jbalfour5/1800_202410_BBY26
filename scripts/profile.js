@@ -97,18 +97,17 @@ function displayPosts() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             // Now safely access user.uid
-            const userId = user.uid; 
+            const userId = user.uid;
 
             const postContainer = document.querySelector('.postContainer');
             db.collection("posts")
-          
-                .where("createdID", "==", userId)
+                .where("creatorID", "==", userId)
                 .get()
                 .then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
                         const postData = doc.data();
                         const postId = doc.id;
-
+                        
                         // Create a Bootstrap card for each post
                         const card = document.createElement('div');
                         card.className = 'card mb-4 col-md-3';
@@ -179,7 +178,7 @@ function displayPosts() {
                         cardBody.appendChild(cardTitle);
                         cardBody.appendChild(cardText);
                         cardBody.appendChild(buttonAddressContainer);
-                        cardBody.appendChild(author); 
+                        cardBody.appendChild(author);
                         card.appendChild(img);
                         card.appendChild(cardBody);
 
