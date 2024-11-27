@@ -15,7 +15,7 @@ function togglePassword() {
     toggleIcon.alt = "Hide Password";
   } else {
     passwordField.type = "password";
-    toggleIcon.src = "images/passwordvisible.png";
+    toggleIcon.src = "images/passwordVisible.png";
     toggleIcon.alt = "Show Password";
   }
 }

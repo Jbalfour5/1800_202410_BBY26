@@ -8,16 +8,6 @@
     z-index: 1000;
 }
 
-.createReport {
-    position: fixed;
-    bottom: 50px;
-    right: 1px;
-    width: 150px;
-    height: 100px;
-    padding: 20px;
-    z-index: 1000;
-}
-
 #postForm {
     position: fixed;
     top: 15vh;
@@ -113,3 +103,25 @@ button {
     background-color: #007bff; 
     color: white; 
   }
+
+
+#filterButtons {
+  position: relative; 
+  display: inline-block; 
+  width: 100%; 
+  text-align: center; 
+}
+
+.slider {
+  border-radius: 5px;
+  margin-top: 5px;
+  position: absolute;
+  height: 5px;
+  background-color: #64625d;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.container {
+  margin-bottom: 70px; 
+}

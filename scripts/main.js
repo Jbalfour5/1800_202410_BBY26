@@ -404,4 +404,101 @@ function filterReportsByDate() {
       });
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+  const filterButtons = document.querySelectorAll('#filterButtons label');
+  const slider = document.getElementById('slider');
 
+
+  function updateSliderPosition() {
+    const activeButton = document.querySelector('#filterButtons input[type="radio"]:checked');
+    const activeLabel = activeButton.nextElementSibling; // The corresponding label
+
+    r
+    const buttonWidth = activeLabel.offsetWidth;
+    const buttonLeft = activeLabel.getBoundingClientRect().left;
+
+   
+    slider.style.width = `${buttonWidth}px`;
+
+   
+    const containerLeft = document.getElementById('filterButtons').getBoundingClientRect().left;
+
+
+    slider.style.left = `${buttonLeft - containerLeft}px`;
+  }
+
+  
+  const radioButtons = document.querySelectorAll('#filterButtons input[type="radio"]');
+  radioButtons.forEach(radio => {
+    radio.addEventListener('change', updateSliderPosition);
+  });
+
+  updateSliderPosition();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const option1 = document.getElementById("option1");
+  const option2 = document.getElementById("option2");
+  const option3 = document.getElementById("option3");
+
+  const createReportDiv = document.getElementById("createReportDiv");
+  const createPostDiv = document.getElementById("createPostDiv");
+  const orDiv = document.getElementById("orDiv");
+
+  option1.addEventListener("change", function () {
+    createReportDiv.style.display = "none";  // Hide Create Report
+    createPostDiv.style.display = "block";   // Show Create Post
+    orDiv.style.display = "none";            // Hide "or"
+  });
+
+  option2.addEventListener("change", function () {
+    createReportDiv.style.display = "block"; // Show Create Report
+    createPostDiv.style.display = "block";   // Show Create Post
+    orDiv.style.display = "block";           // Show "or"
+  });
+
+  option3.addEventListener("change", function () {
+    createReportDiv.style.display = "block"; // Show Create Report
+    createPostDiv.style.display = "none";    // Hide Create Post
+    orDiv.style.display = "none";            // Hide "or"
+  });
+});
+
+
+const postsToggle = document.getElementById('option1');  // Posts
+const allToggle = document.getElementById('option2');    // All
+const reportsToggle = document.getElementById('option3'); // Reports
+
+const postContainer = document.querySelector('.togglePosts');  // Container for posts
+const reportContainer = document.querySelector('.toggleReports'); // Container for reports
+
+
+
+postsToggle.addEventListener('change', filterContent);
+allToggle.addEventListener('change', filterContent);
+reportsToggle.addEventListener('change', filterContent);
+
+// Function to filter content based on selected button
+function filterContent() {
+    console.log("Posts:", postsToggle.checked);
+    console.log("Reports:", reportsToggle.checked);
+    console.log("All:", allToggle.checked);
+
+    // Check the selected toggle option
+    if (postsToggle.checked) {
+        console.log("Showing Posts");
+        postContainer.style.display = 'block'; // Ensure posts are displayed
+        reportContainer.style.display = 'none'; // Hide reports
+    } else if (reportsToggle.checked) {
+        console.log("Showing Reports");
+        postContainer.style.display = 'none'; // Hide posts
+        reportContainer.style.display = 'block'; // Ensure reports are displayed
+    } else if (allToggle.checked) {
+        console.log("Showing Both");
+        postContainer.style.display = 'block'; // Ensure posts are displayed
+        reportContainer.style.display = 'block'; // Ensure reports are displayed
+    }
+}
+
+// Initial filter based on the default checked option
+filterContent();
