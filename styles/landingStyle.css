@@ -1,0 +1,29 @@
+.card-cover {
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    transform: scale(1); 
+    transition: transform 0.3s ease-in-out;
+  }
+  .card-cover h2 {
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
+  }
+
+  .card-cover p {
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
+  }
+  
+  .card-cover:hover {
+    transform: scale(1.05); 
+    transition: transform 0.3s ease-in-out;
+  }
+
+  
+
+
+  
+  
+
+  
+  
+  
