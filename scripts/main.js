@@ -413,7 +413,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const activeButton = document.querySelector('#filterButtons input[type="radio"]:checked');
     const activeLabel = activeButton.nextElementSibling; // The corresponding label
 
-    r
     const buttonWidth = activeLabel.offsetWidth;
     const buttonLeft = activeLabel.getBoundingClientRect().left;
 
