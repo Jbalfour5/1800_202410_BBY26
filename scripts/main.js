@@ -176,7 +176,7 @@ async function updateReaction(postId, reaction, likeButton, dislikeButton, likeC
     } else if (currentDislikeReaction === "disliked") {
       // User switches from dislike to like
       likeButton.dataset.reaction = "liked";
-      dislikeButton.dataset.reaction = "none"; // reset dislike
+      dislikeButton.dataset.reaction = "none"; 
       likesChange = 1;
       dislikesChange = -1;
     } else {
@@ -194,7 +194,7 @@ async function updateReaction(postId, reaction, likeButton, dislikeButton, likeC
     } else if (currentLikeReaction === "liked") {
       // User switches from like to dislike
       dislikeButton.dataset.reaction = "disliked";
-      likeButton.dataset.reaction = "none"; // reset like
+      likeButton.dataset.reaction = "none"; 
       likesChange = -1;
       dislikesChange = 1;
     } else {
@@ -219,10 +219,6 @@ async function updateReaction(postId, reaction, likeButton, dislikeButton, likeC
     console.error("Error updating reaction:", error);
   }
 }
-  
-
-//-------------------------------------------------------------
-
 
 let reportIDToDelete = null;
 let deleteModal = null;
@@ -435,35 +431,6 @@ document.addEventListener('DOMContentLoaded', function () {
   updateSliderPosition();
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const option1 = document.getElementById("option1");
-  const option2 = document.getElementById("option2");
-  const option3 = document.getElementById("option3");
-
-  const createReportDiv = document.getElementById("createReportDiv");
-  const createPostDiv = document.getElementById("createPostDiv");
-  const orDiv = document.getElementById("orDiv");
-
-  option1.addEventListener("change", function () {
-    createReportDiv.style.display = "none";  // Hide Create Report
-    createPostDiv.style.display = "block";   // Show Create Post
-    orDiv.style.display = "none";            // Hide "or"
-  });
-
-  option2.addEventListener("change", function () {
-    createReportDiv.style.display = "block"; // Show Create Report
-    createPostDiv.style.display = "block";   // Show Create Post
-    orDiv.style.display = "block";           // Show "or"
-  });
-
-  option3.addEventListener("change", function () {
-    createReportDiv.style.display = "block"; // Show Create Report
-    createPostDiv.style.display = "none";    // Hide Create Post
-    orDiv.style.display = "none";            // Hide "or"
-  });
-});
-
-
 const postsToggle = document.getElementById('option1');  // Posts
 const allToggle = document.getElementById('option2');    // All
 const reportsToggle = document.getElementById('option3'); // Reports
@@ -471,31 +438,36 @@ const reportsToggle = document.getElementById('option3'); // Reports
 const postContainer = document.querySelector('.togglePosts');  // Container for posts
 const reportContainer = document.querySelector('.toggleReports'); // Container for reports
 
-
-
 postsToggle.addEventListener('change', filterContent);
 allToggle.addEventListener('change', filterContent);
 reportsToggle.addEventListener('change', filterContent);
 
-// Function to filter content based on selected button
+/**
+ * Allows the filtering of the content displayed on main.
+ * 
+ * This function alters the display style of the content on the dashboard 
+ * depending on the selected toggle.
+ * When the postsToggle is active, the posts display is block and the report display is none.
+ * When the reportsToggle is active, the reports display is block and the post display is none.
+ * When the allToggle is checked, both the reports and post display is block.
+ */
 function filterContent() {
     console.log("Posts:", postsToggle.checked);
     console.log("Reports:", reportsToggle.checked);
     console.log("All:", allToggle.checked);
-
     // Check the selected toggle option
     if (postsToggle.checked) {
         console.log("Showing Posts");
-        postContainer.style.display = 'block'; // Ensure posts are displayed
-        reportContainer.style.display = 'none'; // Hide reports
+        postContainer.style.display = 'block';
+        reportContainer.style.display = 'none';
     } else if (reportsToggle.checked) {
         console.log("Showing Reports");
-        postContainer.style.display = 'none'; // Hide posts
-        reportContainer.style.display = 'block'; // Ensure reports are displayed
+        postContainer.style.display = 'none'; 
+        reportContainer.style.display = 'block'; 
     } else if (allToggle.checked) {
         console.log("Showing Both");
-        postContainer.style.display = 'block'; // Ensure posts are displayed
-        reportContainer.style.display = 'block'; // Ensure reports are displayed
+        postContainer.style.display = 'block'; 
+        reportContainer.style.display = 'block';
     }
 }
 

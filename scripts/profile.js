@@ -5,6 +5,8 @@ var currentUser; //points to the document of the user who is logged in
  * This function listens for changes in the Firebase authentication state. When a user is logged in, 
  * it retrieves the user's document from Firestore, extracts relevant data fields (name, age, city, etc.), 
  * and populates corresponding form fields in the UI.
+ * 
+ * Some or several parts of this function have been extracted from Carly's demo.
  */
 function populateUserInfo() {
     firebase.auth().onAuthStateChanged(user => {
@@ -57,10 +59,10 @@ function saveUserInfo() {
     //enter code here
 
     //a) get user entered values
-    userName = document.getElementById('nameInput').value;       //get the value of the field with id="nameInput"
-    userAge = document.getElementById('ageInput').value;     //get the value of the field with id="schoolInput"
+    userName = document.getElementById('nameInput').value;       
+    userAge = document.getElementById('ageInput').value;     
     userCity = document.getElementById('cityInput').value;
-    userAccess = document.getElementById('accessInput').value;    //get the value of the field with id="cityInput"
+    userAccess = document.getElementById('accessInput').value;    
     //b) update user's document in Firestore
     currentUser.update({
         name: userName,
@@ -107,7 +109,7 @@ function displayPosts() {
                     querySnapshot.forEach((doc) => {
                         const postData = doc.data();
                         const postId = doc.id;
-                        
+
                         // Create a Bootstrap card for each post
                         const card = document.createElement('div');
                         card.className = 'card mb-4 col-md-3';

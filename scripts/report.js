@@ -3,6 +3,8 @@ console.log(reportDocID);
 
 /**
  * Fetches the name of a report from the Firestore database using its document ID and updates the DOM.
+ * 
+ *  Some or several parts of this function have been extracted from Carly's demo.
  *
  * @param {string} id - The document ID of the report to retrieve
  */
