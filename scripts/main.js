@@ -48,7 +48,7 @@ function displayPosts() {
         buttonAddressContainer.className = 'd-flex justify-content-between align-items-center mt-3';
 
         const viewMoreButton = document.createElement('a');
-        viewMoreButton.className = 'btn btn-primary';
+        viewMoreButton.className = 'btn btn-success';
         viewMoreButton.textContent = 'View More';
         viewMoreButton.href = `postDetails.html?id=${doc.id}`;
 
@@ -92,16 +92,16 @@ function displayPosts() {
         cardBody.appendChild(cardTitle);
         cardBody.appendChild(cardText);
         cardBody.appendChild(buttonAddressContainer);
-        cardBody.appendChild(author); 
+        cardBody.appendChild(author);
         card.appendChild(img);
         card.appendChild(cardBody);
 
         cardBody.appendChild(likeDislikeContainer);
         likeButton.appendChild(likeCount);
         dislikeButton.appendChild(dislikeCount);
-       
+
         postContainer.appendChild(card);
-      
+
         // Add event listeners for like and dislike buttons
         likeButton.addEventListener("click", () => {
           updateReaction(postId, "like", likeButton, dislikeButton, likeCount, dislikeCount);
@@ -118,7 +118,7 @@ function displayPosts() {
 }
 
 //Triggers the displayPosts function once the DOM content has fully loaded
-window.addEventListener('DOMContentLoaded', displayPosts); 
+window.addEventListener('DOMContentLoaded', displayPosts);
 
 /**
  * Handles the showing and hiding of the post creation form.
@@ -176,7 +176,7 @@ async function updateReaction(postId, reaction, likeButton, dislikeButton, likeC
     } else if (currentDislikeReaction === "disliked") {
       // User switches from dislike to like
       likeButton.dataset.reaction = "liked";
-      dislikeButton.dataset.reaction = "none"; 
+      dislikeButton.dataset.reaction = "none";
       likesChange = 1;
       dislikesChange = -1;
     } else {
@@ -194,7 +194,7 @@ async function updateReaction(postId, reaction, likeButton, dislikeButton, likeC
     } else if (currentLikeReaction === "liked") {
       // User switches from like to dislike
       dislikeButton.dataset.reaction = "disliked";
-      likeButton.dataset.reaction = "none"; 
+      likeButton.dataset.reaction = "none";
       likesChange = -1;
       dislikesChange = 1;
     } else {
@@ -224,115 +224,115 @@ let reportIDToDelete = null;
 let deleteModal = null;
 
 function displayReports() {
-    const reportContainer = document.getElementById('reportContainer');
-    reportContainer.innerHTML = ''; // Clear previous content
+  const reportContainer = document.getElementById('reportContainer');
+  reportContainer.innerHTML = ''; // Clear previous content
 
-    console.log("Fetching reports from Firestore...");
+  console.log("Fetching reports from Firestore...");
 
-    db.collection("reports")
-        .orderBy("timestamp", "desc") // Order by timestamp in descending order
-        .get()
-        .then((querySnapshot) => {
-            console.log("Reports fetched:", querySnapshot.size);
+  db.collection("reports")
+    .orderBy("timestamp", "desc") // Order by timestamp in descending order
+    .get()
+    .then((querySnapshot) => {
+      console.log("Reports fetched:", querySnapshot.size);
 
-            querySnapshot.forEach((doc) => {
-                const reportData = doc.data();
-                console.log("Report Data:", reportData);
+      querySnapshot.forEach((doc) => {
+        const reportData = doc.data();
+        console.log("Report Data:", reportData);
 
-                // Fetch user details
-                db.collection("users").doc(reportData.userID).get().then((userDoc) => {
-                    if (userDoc.exists) {
-                        const userData = userDoc.data();
-                        console.log("User Data:", userData);
+        // Fetch user details
+        db.collection("users").doc(reportData.userID).get().then((userDoc) => {
+          if (userDoc.exists) {
+            const userData = userDoc.data();
+            console.log("User Data:", userData);
 
-                        // Create a Bootstrap card for each report
-                        const card = document.createElement('div');
-                        card.className = 'card mb-4 col-md-4';
+            // Create a Bootstrap card for each report
+            const card = document.createElement('div');
+            card.className = 'card mb-4 col-md-4';
 
-                        const cardBody = document.createElement('div');
-                        cardBody.className = 'card-body';
+            const cardBody = document.createElement('div');
+            cardBody.className = 'card-body';
 
-                        const cardTitle = document.createElement('h5');
-                        cardTitle.className = 'card-title';
-                        cardTitle.textContent = reportData.title;
+            const cardTitle = document.createElement('h5');
+            cardTitle.className = 'card-title';
+            cardTitle.textContent = reportData.title;
 
-                        const cardText = document.createElement('p');
-                        cardText.className = 'card-text';
-                        cardText.textContent = `Rating: ${reportData.rating}/5`;
+            const cardText = document.createElement('p');
+            cardText.className = 'card-text';
+            cardText.textContent = `Rating: ${reportData.rating}/5`;
 
-                        const cardFooter = document.createElement('p');
-                        cardFooter.className = 'card-text';
-                        cardFooter.textContent = `Comments: ${reportData.commentsFeedback}`;
+            const cardFooter = document.createElement('p');
+            cardFooter.className = 'card-text';
+            cardFooter.textContent = `Comments: ${reportData.commentsFeedback}`;
 
-                        const cardDate = document.createElement('p');
-                        cardDate.className = 'card-text';
-                        cardDate.textContent = `Date: ${reportData.timestamp.toDate().toLocaleString()}`;
+            const cardDate = document.createElement('p');
+            cardDate.className = 'card-text';
+            cardDate.textContent = `Date: ${reportData.timestamp.toDate().toLocaleString()}`;
 
-                        const cardUser = document.createElement('p');
-                        cardUser.className = 'card-text';
-                        cardUser.textContent = `Created by: ${userData.firstName} ${userData.lastName}`;
+            const cardUser = document.createElement('p');
+            cardUser.className = 'card-text';
+            cardUser.textContent = `Created by: ${userData.firstName} ${userData.lastName}`;
 
-                        // Create the Read More button
-                        const readMoreButton = document.createElement('a');
-                        readMoreButton.className = 'btn btn-primary';
-                        readMoreButton.textContent = 'Read More';
-                        readMoreButton.href = `reportDetails.html?id=${doc.id}`;
+            // Create the Read More button
+            const readMoreButton = document.createElement('a');
+            readMoreButton.className = 'btn btn-success';
+            readMoreButton.textContent = 'Read More';
+            readMoreButton.href = `reportDetails.html?id=${doc.id}`;
 
-                        cardBody.appendChild(cardTitle);
-                        cardBody.appendChild(cardText);
-                        cardBody.appendChild(cardFooter);
-                        cardBody.appendChild(cardDate);
-                        cardBody.appendChild(cardUser);
-                        cardBody.appendChild(readMoreButton);
+            cardBody.appendChild(cardTitle);
+            cardBody.appendChild(cardText);
+            cardBody.appendChild(cardFooter);
+            cardBody.appendChild(cardDate);
+            cardBody.appendChild(cardUser);
+            cardBody.appendChild(readMoreButton);
 
-                        // Check if the current user is the creator of the report
-                        firebase.auth().onAuthStateChanged((user) => {
-                            if (user && user.uid === reportData.userID) {
-                                const deleteButton = document.createElement('button');
-                                deleteButton.className = 'btn btn-danger ml-2';
-                                deleteButton.textContent = 'Delete';
-                                deleteButton.onclick = () => {
-                                    reportIDToDelete = doc.id;
-                                    deleteModal.show();
-                                };
-                                cardBody.appendChild(deleteButton);
-                            }
-                        });
-
-                        card.appendChild(cardBody);
-                        reportContainer.appendChild(card);
-                    } else {
-                        console.log(`User document not found: ${reportData.userID}`);
-                    }
-                }).catch((error) => {
-                    console.log("Error getting user document: ", error);
-                });
+            // Check if the current user is the creator of the report
+            firebase.auth().onAuthStateChanged((user) => {
+              if (user && user.uid === reportData.userID) {
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'btn btn-danger ml-2';
+                deleteButton.textContent = 'Delete';
+                deleteButton.onclick = () => {
+                  reportIDToDelete = doc.id;
+                  deleteModal.show();
+                };
+                cardBody.appendChild(deleteButton);
+              }
             });
-        })
-        .catch((error) => {
-            console.log("Error getting documents: ", error);
+
+            card.appendChild(cardBody);
+            reportContainer.appendChild(card);
+          } else {
+            console.log(`User document not found: ${reportData.userID}`);
+          }
+        }).catch((error) => {
+          console.log("Error getting user document: ", error);
         });
+      });
+    })
+    .catch((error) => {
+      console.log("Error getting documents: ", error);
+    });
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    displayReports();
-    deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'), {
-        backdrop: 'static',
-        keyboard: false
-    });
+  displayReports();
+  deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'), {
+    backdrop: 'static',
+    keyboard: false
+  });
 });
 
 document.getElementById('confirmDeleteButton').onclick = () => {
-    if (reportIDToDelete) {
-        db.collection("reports").doc(reportIDToDelete).delete().then(() => {
-            console.log("Document successfully deleted!");
-            reportIDToDelete = null;
-            displayReports(); // Refresh the list of reports
-            deleteModal.hide(); // Hide the modal
-        }).catch((error) => {
-            console.error("Error removing document: ", error);
-        });
-    }
+  if (reportIDToDelete) {
+    db.collection("reports").doc(reportIDToDelete).delete().then(() => {
+      console.log("Document successfully deleted!");
+      reportIDToDelete = null;
+      displayReports();
+      deleteModal.hide(); 
+    }).catch((error) => {
+      console.error("Error removing document: ", error);
+    });
+  }
 };
 
 
@@ -355,49 +355,49 @@ function filterReportsByDate() {
   reportContainer.innerHTML = ''; // Clear previous content
 
   db.collection("reports")
-      .where("timestamp", ">=", new Date(startDate))
-      .where("timestamp", "<=", new Date(endDate))
-      .get()
-      .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-              const reportData = doc.data();
+    .where("timestamp", ">=", new Date(startDate))
+    .where("timestamp", "<=", new Date(endDate))
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const reportData = doc.data();
 
-              // Create a Bootstrap card for each report
-              const card = document.createElement('div');
-              card.className = 'card mb-4 col-md-4';
+        // Create a Bootstrap card for each report
+        const card = document.createElement('div');
+        card.className = 'card mb-4 col-md-4';
 
-              const cardBody = document.createElement('div');
-              cardBody.className = 'card-body';
+        const cardBody = document.createElement('div');
+        cardBody.className = 'card-body';
 
-              const cardTitle = document.createElement('h5');
-              cardTitle.className = 'card-title';
-              cardTitle.textContent = reportData.title;
+        const cardTitle = document.createElement('h5');
+        cardTitle.className = 'card-title';
+        cardTitle.textContent = reportData.title;
 
-              const cardText = document.createElement('p');
-              cardText.className = 'card-text';
-              cardText.textContent = `Rating: ${reportData.rating}/5`;
+        const cardText = document.createElement('p');
+        cardText.className = 'card-text';
+        cardText.textContent = `Rating: ${reportData.rating}/5`;
 
-              const cardFooter = document.createElement('p');
-              cardFooter.className = 'card-text';
-              cardFooter.textContent = `Comments: ${reportData.commentsFeedback}`;
+        const cardFooter = document.createElement('p');
+        cardFooter.className = 'card-text';
+        cardFooter.textContent = `Comments: ${reportData.commentsFeedback}`;
 
-              // Create the Read More button
-              const readMoreButton = document.createElement('a');
-              readMoreButton.className = 'btn btn-primary';
-              readMoreButton.textContent = 'Read More';
-              readMoreButton.href = `reportDetails.html?id=${doc.id}`;
+        // Create the Read More button
+        const readMoreButton = document.createElement('a');
+        readMoreButton.className = 'btn btn-success';
+        readMoreButton.textContent = 'Read More';
+        readMoreButton.href = `reportDetails.html?id=${doc.id}`;
 
-              cardBody.appendChild(cardTitle);
-              cardBody.appendChild(cardText);
-              cardBody.appendChild(cardFooter);
-              cardBody.appendChild(readMoreButton);
-              card.appendChild(cardBody);
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardText);
+        cardBody.appendChild(cardFooter);
+        cardBody.appendChild(readMoreButton);
+        card.appendChild(cardBody);
 
-              reportContainer.appendChild(card);
-          });
-      }).catch((error) => {
-          console.log("Error getting documents: ", error);
+        reportContainer.appendChild(card);
       });
+    }).catch((error) => {
+      console.log("Error getting documents: ", error);
+    });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -407,22 +407,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function updateSliderPosition() {
     const activeButton = document.querySelector('#filterButtons input[type="radio"]:checked');
-    const activeLabel = activeButton.nextElementSibling; // The corresponding label
+    const activeLabel = activeButton.nextElementSibling;
 
     const buttonWidth = activeLabel.offsetWidth;
     const buttonLeft = activeLabel.getBoundingClientRect().left;
 
-   
+
     slider.style.width = `${buttonWidth}px`;
 
-   
+
     const containerLeft = document.getElementById('filterButtons').getBoundingClientRect().left;
 
 
     slider.style.left = `${buttonLeft - containerLeft}px`;
   }
 
-  
+
   const radioButtons = document.querySelectorAll('#filterButtons input[type="radio"]');
   radioButtons.forEach(radio => {
     radio.addEventListener('change', updateSliderPosition);
@@ -452,23 +452,23 @@ reportsToggle.addEventListener('change', filterContent);
  * When the allToggle is checked, both the reports and post display is block.
  */
 function filterContent() {
-    console.log("Posts:", postsToggle.checked);
-    console.log("Reports:", reportsToggle.checked);
-    console.log("All:", allToggle.checked);
-    // Check the selected toggle option
-    if (postsToggle.checked) {
-        console.log("Showing Posts");
-        postContainer.style.display = 'block';
-        reportContainer.style.display = 'none';
-    } else if (reportsToggle.checked) {
-        console.log("Showing Reports");
-        postContainer.style.display = 'none'; 
-        reportContainer.style.display = 'block'; 
-    } else if (allToggle.checked) {
-        console.log("Showing Both");
-        postContainer.style.display = 'block'; 
-        reportContainer.style.display = 'block';
-    }
+  console.log("Posts:", postsToggle.checked);
+  console.log("Reports:", reportsToggle.checked);
+  console.log("All:", allToggle.checked);
+  // Check the selected toggle option
+  if (postsToggle.checked) {
+    console.log("Showing Posts");
+    postContainer.style.display = 'block';
+    reportContainer.style.display = 'none';
+  } else if (reportsToggle.checked) {
+    console.log("Showing Reports");
+    postContainer.style.display = 'none';
+    reportContainer.style.display = 'block';
+  } else if (allToggle.checked) {
+    console.log("Showing Both");
+    postContainer.style.display = 'block';
+    reportContainer.style.display = 'block';
+  }
 }
 
 // Initial filter based on the default checked option

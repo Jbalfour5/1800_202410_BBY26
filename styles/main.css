@@ -78,29 +78,29 @@ button {
 }
 
 .likeButton {
-  color: #0d6efd;
-  border: 1px solid #0d6efd;
+  color: #198754;
+  border: 1px solid #198754;
   background: transparent;
 }
 
 .dislikeButton{
-  color: #0d6efd;
-  border: 1px solid #0d6efd;
+  color: #198754;
+  border: 1px solid #198754;
   background: transparent;
 }
 
 .likeButton:hover {
-  background: #0d6efd;
+  background: #198754;
   color: white;
 }
 
 .dislikeButton:hover {
-  background: #0d6efd;
+  background: #198754;
   color: white;
 }
 
 .btn.reactionButton.active {
-    background-color: #007bff; 
+    background-color: #198754; 
     color: white; 
   }
 
@@ -117,7 +117,7 @@ button {
   margin-top: 5px;
   position: absolute;
   height: 5px;
-  background-color: #64625d;
+  background-color: #1a843e;
   transition: all 0.3s ease;
   z-index: 10;
 }
@@ -125,4 +125,3 @@ button {
 .container {
   margin-bottom: 70px; 
 }
-

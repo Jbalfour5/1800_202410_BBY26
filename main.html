@@ -62,13 +62,13 @@
     <p><i>What would you like to see?</i></p>
     <div class="btn-group" role="group" id="filterButtons">
       <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off">
-      <label class="btn btn-primary" for="option1">Posts</label>
+      <label class="btn btn-success" for="option1">Posts</label>
 
       <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" checked>
-      <label class="btn btn-primary" for="option2">All</label>
+      <label class="btn btn-success" for="option2">All</label>
 
       <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off">
-      <label class="btn btn-primary" for="option3">Reports</label>
+      <label class="btn btn-success" for="option3">Reports</label>
 
       <!-- The Slider -->
       <div class="slider align-items-center" id="slider"></div>
@@ -80,7 +80,7 @@
     <!-- Create Report -->
     <div class="text-center me-3" id="createReportDiv">
       <p class="mb-1">Submit a Safety Report</p>
-      <button class="btn btn-primary" onclick="window.location.href='report.html'"">Create Report</button>
+      <button class="btn btn-success" onclick="window.location.href='report.html'"">Create Report</button>
     </div>
 
     <!-- Or -->
@@ -91,7 +91,7 @@
     <!-- Create Post -->
     <div class="text-center ms-3" id="createPostDiv">
       <p class="mb-1">Share a General Post</p>
-      <button class="btn btn-primary" id="createPostButton" >Create Post</button>
+      <button class="btn btn-success" id="createPostButton" >Create Post</button>
     </div>
   </div>
 
@@ -115,7 +115,7 @@
       <div class="container form-group p-2 mt-4 text-center" id="postImage">
         <img class="img-fluid shadow-lg  opacity-50" id="selectedImage" src="/images/noImage.png">
         <input type="file" id="imageInput" accept="image/*" style="display: none;">
-        <button type="button" class="btn btn-primary" id="selectImageButton">Select post image</button>
+        <button type="button" class="btn btn-success" id="selectImageButton">Select post image</button>
       </div>
       <div class="form-group">
         <label for="postTitle">Post Title</label>
@@ -152,7 +152,7 @@
       <input type="hidden" id="postLatitude" name="latitude">
       <input type="hidden" id="postLongitude" name="longitude">
       <div class="container text-end">
-        <button type="button" class="btn btn-primary" id="submitPostButton">Submit Post</button>
+        <button type="button" class="btn btn-success" id="submitPostButton">Submit Post</button>
       </div>
     </form>
   </div>
@@ -171,7 +171,7 @@
       <input type="date" id="startDate" class="form-control">
       <label for="endDate">End Date:</label>
       <input type="date" id="endDate" class="form-control">
-      <button class="btn btn-primary mt-2" onclick="filterReportsByDate()">Filter</button>
+      <button class="btn btn-success mt-2" onclick="filterReportsByDate()">Filter</button>
     </div>
     <br>
     <div class="row" id="reportContainer"></div>

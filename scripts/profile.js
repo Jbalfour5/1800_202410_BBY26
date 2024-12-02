@@ -134,7 +134,7 @@ function displayPosts() {
                         buttonAddressContainer.className = 'd-flex justify-content-between align-items-center mt-3';
 
                         const viewMoreButton = document.createElement('a');
-                        viewMoreButton.className = 'btn btn-primary';
+                        viewMoreButton.className = 'btn btn-success';
                         viewMoreButton.textContent = 'View More';
                         viewMoreButton.href = `postDetails.html?id=${doc.id}`;
 

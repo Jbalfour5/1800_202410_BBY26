@@ -21,11 +21,11 @@ body {
     border: 3px solid; 
     border-image-slice: 1;
     border-image-source: linear-gradient(to right, red, yellow); /* Gradient border */
-    border-radius: 8px; /* Rounded corners */
-    text-decoration: none; /* Remove underline from link */
+    border-radius: 8px; 
+    text-decoration: none;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
-    transition: all 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    transition: all 0.3s ease; 
 }
 
 .plus-sign {
