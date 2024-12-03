@@ -125,7 +125,7 @@ function displayPosts(loadMore = false) {
           const likes = postData.likes || 0;
           const dislikes = postData.dislikes || 0;
           if (likes + dislikes === 0) {
-            reliabilityText.textContent = "Unreliable";
+            reliabilityText.textContent = "Undetermined Reliability ";
           } else {
             const ratio = likes / (likes + dislikes);
             if (ratio >= 0.75) {

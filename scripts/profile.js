@@ -59,10 +59,10 @@ function saveUserInfo() {
     //enter code here
 
     //a) get user entered values
-    userName = document.getElementById('nameInput').value;       
-    userAge = document.getElementById('ageInput').value;     
+    userName = document.getElementById('nameInput').value;
+    userAge = document.getElementById('ageInput').value;
     userCity = document.getElementById('cityInput').value;
-    userAccess = document.getElementById('accessInput').value;    
+    userAccess = document.getElementById('accessInput').value;
     //b) update user's document in Firestore
     currentUser.update({
         name: userName,
@@ -96,18 +96,13 @@ function saveUserInfo() {
  */
 function displayPosts(loadMore = false) {
     const postContainer = document.querySelector('.postContainer');
-
     if (!loadMore) {
         postContainer.innerHTML = '';
         lastVisible = null;
     }
-
-    // Ensure Firebase auth is ready
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             const userId = user.uid;
-
-            // Query Firestore for posts created by the logged-in user
             let query = db.collection("posts")
                 .where("creatorID", "==", userId)
                 .orderBy("createdAt", "desc")
@@ -161,8 +156,6 @@ function displayPosts(loadMore = false) {
 
                         const createdAtText = document.createElement('span');
                         createdAtText.className = 'text-muted small';
-
-                        // Convert Firestore Timestamp to a readable date
                         if (postData.createdAt instanceof firebase.firestore.Timestamp) {
                             const createdAtDate = postData.createdAt.toDate();
                             createdAtText.textContent = `Created on: ${createdAtDate.toLocaleString()}`;
@@ -372,12 +365,12 @@ displayUserReports();
 
 
 
-  
 
 
 
 
-  
+
+
 
 
 

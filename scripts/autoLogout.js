@@ -5,6 +5,8 @@
  * Wherever this function is referenced in html, it will log the user out on that respective page.
  */
 window.addEventListener('load', function () {
+  // Only log out on pages where it makes sense, e.g., not on the sign-up page.
+  if (window.location.pathname !== "/signup.html") {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         firebase.auth().signOut().then(function() {
@@ -14,5 +16,6 @@ window.addEventListener('load', function () {
         });
       }
     });
-  });
+  }
+});
   
