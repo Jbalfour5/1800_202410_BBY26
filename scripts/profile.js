@@ -94,32 +94,58 @@ function saveUserInfo() {
  * This function also sets up event listeners for the like and dislike buttons to handle user reactions.
  * 
  */
-function displayPosts() {
-    // Wait until Firebase auth state is fully initialized
+function displayPosts(loadMore = false) {
+    const postContainer = document.querySelector('.postContainer');
+
+    if (!loadMore) {
+        postContainer.innerHTML = '';
+        lastVisible = null;
+    }
+
+    // Ensure Firebase auth is ready
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
-            // Now safely access user.uid
             const userId = user.uid;
 
-            const postContainer = document.querySelector('.postContainer');
-            db.collection("posts")
+            // Query Firestore for posts created by the logged-in user
+            let query = db.collection("posts")
                 .where("creatorID", "==", userId)
-                .get()
+                .orderBy("createdAt", "desc")
+                .limit(POSTS_PER_PAGE);
+
+            if (lastVisible) {
+                query = query.startAfter(lastVisible);
+            }
+
+            query.get()
                 .then((querySnapshot) => {
+                    if (querySnapshot.empty) {
+                        const loadMoreButton = document.getElementById('loadMoreButton');
+                        if (loadMoreButton) loadMoreButton.style.display = 'none';
+                        return;
+                    }
+
+                    lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+
+                    const row = document.createElement('div');
+                    row.className = 'row g-4 mt-4';
+
                     querySnapshot.forEach((doc) => {
                         const postData = doc.data();
                         const postId = doc.id;
 
-                        // Create a Bootstrap card for each post
+                        const col = document.createElement('div');
+                        col.className = 'col-lg-4 col-md-6 col-sm-12';
+
                         const card = document.createElement('div');
-                        card.className = 'card mb-4 col-md-3';
+                        card.className = 'card h-100';
 
                         const img = document.createElement('img');
                         img.className = 'card-img-top';
                         img.src = postData.imageUrl || 'images/noImage.png';
 
                         const cardBody = document.createElement('div');
-                        cardBody.className = 'card-body';
+                        cardBody.className = 'card-body d-flex flex-column';
 
                         const cardTitle = document.createElement('h5');
                         cardTitle.className = 'card-title';
@@ -129,25 +155,39 @@ function displayPosts() {
                         cardText.className = 'card-text';
                         cardText.textContent = postData.description;
 
-                        // Container for the button and address
-                        const buttonAddressContainer = document.createElement('div');
-                        buttonAddressContainer.className = 'd-flex justify-content-between align-items-center mt-3';
+                        const addressText = document.createElement('p');
+                        addressText.className = 'text-muted small text-center mt-2';
+                        addressText.textContent = postData.address || 'Address not available';
+
+                        const createdAtText = document.createElement('span');
+                        createdAtText.className = 'text-muted small';
+
+                        // Convert Firestore Timestamp to a readable date
+                        if (postData.createdAt instanceof firebase.firestore.Timestamp) {
+                            const createdAtDate = postData.createdAt.toDate();
+                            createdAtText.textContent = `Created on: ${createdAtDate.toLocaleString()}`;
+                        } else {
+                            createdAtText.textContent = `Created on: ${postData.createdAt}`;
+                        }
 
                         const viewMoreButton = document.createElement('a');
-                        viewMoreButton.className = 'btn btn-success';
+                        viewMoreButton.className = 'btn btn-success w-100';
                         viewMoreButton.textContent = 'View More';
-                        viewMoreButton.href = `postDetails.html?id=${doc.id}`;
+                        viewMoreButton.href = `postDetails.html?id=${postId}`;
 
-                        const addressText = document.createElement('p');
-                        addressText.className = 'mb-0';
-                        addressText.textContent = postData.address || 'Address not available';
-                        addressText.style.marginLeft = '10px';
+                        const reactionContainer = document.createElement('div');
+                        reactionContainer.className = 'mt-3 d-flex justify-content-between align-items-center';
 
-                        // Like/Dislike container
-                        const likeDislikeContainer = document.createElement('div');
-                        likeDislikeContainer.className = 'd-flex mt-3 align-items-center';
+                        const likeButton = document.createElement('button');
+                        likeButton.className = 'btn btn-outline-success btn-sm likeButton';
+                        likeButton.innerHTML = '<span class="material-icons">thumb_up</span>';
+                        likeButton.dataset.postId = postId;
 
-                        // Create spans for displaying the number of likes/dislikes
+                        const dislikeButton = document.createElement('button');
+                        dislikeButton.className = 'btn btn-outline-success btn-sm dislikeButton';
+                        dislikeButton.innerHTML = '<span class="material-icons">thumb_down</span>';
+                        dislikeButton.dataset.postId = postId;
+
                         const likeCount = document.createElement('span');
                         likeCount.className = 'ms-2';
                         likeCount.textContent = postData.likes || 0;
@@ -156,52 +196,55 @@ function displayPosts() {
                         dislikeCount.className = 'ms-2';
                         dislikeCount.textContent = postData.dislikes || 0;
 
-                        const likeButton = document.createElement('button');
-                        likeButton.className = 'btn d-flex align-items-center me-2 likeButton reactionButton';
-                        likeButton.innerHTML = '<span class="material-icons">thumb_up</span>';
-                        likeButton.dataset.postId = postId;
+                        const reliabilityText = document.createElement('span');
+                        reliabilityText.className = 'text-center mx-3 small text-muted';
 
-                        const dislikeButton = document.createElement('button');
-                        dislikeButton.className = 'btn d-flex align-items-center dislikeButton reactionButton';
-                        dislikeButton.innerHTML = '<span class="material-icons">thumb_down</span>';
-                        dislikeButton.dataset.postId = postId;
+                        const updateReliabilityText = () => {
+                            const likes = postData.likes || 0;
+                            const dislikes = postData.dislikes || 0;
+                            if (likes + dislikes === 0) {
+                                reliabilityText.textContent = "Unreliable";
+                            } else {
+                                const ratio = likes / (likes + dislikes);
+                                if (ratio >= 0.75) {
+                                    reliabilityText.textContent = "Mostly Reliable";
+                                } else if (ratio >= 0.5) {
+                                    reliabilityText.textContent = "Reliable";
+                                } else if (ratio >= 0.25) {
+                                    reliabilityText.textContent = "Barely Reliable";
+                                } else {
+                                    reliabilityText.textContent = "Unreliable";
+                                }
+                            }
+                        };
 
-                        const author = document.createElement('p');
-                        author.className = 'mt-3 text-muted'
-                        author.innerHTML = `Created by: ${postData.createdBy}`;
+                        updateReliabilityText();
 
-                        // Append Like/Dislike buttons
-                        likeDislikeContainer.appendChild(likeButton);
-                        likeDislikeContainer.appendChild(dislikeButton);
-
-                        buttonAddressContainer.appendChild(viewMoreButton);
-                        buttonAddressContainer.appendChild(addressText);
-
-                        cardBody.appendChild(cardTitle);
-                        cardBody.appendChild(cardText);
-                        cardBody.appendChild(buttonAddressContainer);
-                        cardBody.appendChild(author);
-                        card.appendChild(img);
-                        card.appendChild(cardBody);
-
-                        cardBody.appendChild(likeDislikeContainer);
                         likeButton.appendChild(likeCount);
                         dislikeButton.appendChild(dislikeCount);
 
-                        postContainer.appendChild(card);
+                        reactionContainer.appendChild(likeButton);
+                        reactionContainer.appendChild(reliabilityText);
+                        reactionContainer.appendChild(dislikeButton);
 
-                        // Add event listeners for like and dislike buttons
-                        likeButton.addEventListener("click", () => {
-                            updateReaction(postId, "like", likeButton, dislikeButton, likeCount, dislikeCount);
-                        });
+                        cardBody.appendChild(cardTitle);
+                        cardBody.appendChild(cardText);
+                        cardBody.appendChild(viewMoreButton);
+                        cardBody.appendChild(reactionContainer);
+                        cardBody.appendChild(addressText);
+                        cardBody.appendChild(createdAtText);
 
-                        dislikeButton.addEventListener("click", () => {
-                            updateReaction(postId, "dislike", likeButton, dislikeButton, likeCount, dislikeCount);
-                        });
+                        card.appendChild(img);
+                        card.appendChild(cardBody);
+
+                        col.appendChild(card);
+                        row.appendChild(col);
                     });
+
+                    postContainer.appendChild(row);
                 })
                 .catch((error) => {
-                    console.log("Error getting documents: ", error);
+                    console.log("Error fetching user posts: ", error);
                 });
         } else {
             console.log("No user is signed in.");
@@ -209,9 +252,8 @@ function displayPosts() {
     });
 }
 
-//Triggers the displayPosts function once the DOM content has fully loaded
-window.addEventListener('DOMContentLoaded', displayPosts); 
-
+// Ensure the displayPosts function runs after DOM is loaded
+window.addEventListener('DOMContentLoaded', () => displayPosts());
 
 
 

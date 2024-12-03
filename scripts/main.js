@@ -129,18 +129,29 @@ function displayPosts(loadMore = false) {
           } else {
             const ratio = likes / (likes + dislikes);
             if (ratio >= 0.75) {
-              reliabilityText.textContent = "Mostly Reliable";
+              reliabilityText.textContent = "Completely Reliable";
             } else if (ratio >= 0.5) {
-              reliabilityText.textContent = "Reliable";
+              reliabilityText.textContent = "Mostly Reliable";
             } else if (ratio >= 0.25) {
-              reliabilityText.textContent = "Barely Reliable";
+              reliabilityText.textContent = "Mostly Unreliable";
             } else {
-              reliabilityText.textContent = "Unreliable";
+              reliabilityText.textContent = "Completely Unreliable";
             }
           }
         };
 
+        
         updateReliabilityText();
+
+        likeButton.addEventListener('click', () => {
+          updateReaction(postId, "like", likeButton, dislikeButton, likeCount, dislikeCount);
+          updateReliabilityText();
+        });
+
+        dislikeButton.addEventListener('click', () => {
+          updateReaction(postId, "dislike", likeButton, dislikeButton, likeCount, dislikeCount);
+          updateReliabilityText();
+        });
 
         likeButton.appendChild(likeCount);
         dislikeButton.appendChild(dislikeCount);
@@ -162,6 +173,8 @@ function displayPosts(loadMore = false) {
         col.appendChild(card);
         row.appendChild(col);
       });
+
+      
 
       postContainer.appendChild(row);
     })
