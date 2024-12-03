@@ -2,6 +2,12 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,1) -52%, rgba(203,228,217,1) 0%, rgba(255,255,255,1) 47%);
+  background-attachment: fixed;
+}
+
 .createPost {
     position: fixed;
     bottom: 30px;
