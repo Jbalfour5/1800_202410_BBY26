@@ -530,3 +530,65 @@ function filterContent() {
 
 // Initial filter based on the default checked option
 filterContent();
+
+document.addEventListener("DOMContentLoaded", function () {
+  const option1 = document.getElementById("option1");
+  const option2 = document.getElementById("option2");
+  const option3 = document.getElementById("option3");
+  const createReportDiv = document.getElementById("createReportDiv");
+  const createPostDiv = document.getElementById("createPostDiv");
+  const orDiv = document.getElementById("orDiv");
+  const loadMore = this.getElementById("loadMoreButton");
+  const backToTopText = this.getElementById("backToTop");
+
+  
+  option1.addEventListener("change", function () {
+    createReportDiv.style.display = "none";  // Hide Create Report
+    createPostDiv.style.display = "block";   // Show Create Post
+    orDiv.style.display = "none";            // Hide "or"
+    loadMore.style.display = "block";        // Show load More
+    backToTopText.style.display = "block";   // Show Back to Top? text
+  });
+  option2.addEventListener("change", function () {
+    createReportDiv.style.display = "block"; // Show Create Report
+    createPostDiv.style.display = "block";   // Show Create Post
+    orDiv.style.display = "block";           // Show "or"
+    loadMore.style.display = "block";        // Show load More
+    backToTopText.style.display = "block";   // Show Back to Top? text
+  });
+  option3.addEventListener("change", function () {
+    createReportDiv.style.display = "block"; // Show Create Report
+    createPostDiv.style.display = "none";    // Hide Create Post
+    orDiv.style.display = "none";            // Hide "or"
+    loadMore.style.display = "none";        // Show load More
+    backToTopText.style.display = "none";   // Show Back to Top? text
+  });
+});
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    displayGreeting(user);
+  } else {
+    console.log("No user is logged in.");
+  }
+});
+
+function displayGreeting(user) {
+  if (user) {
+    var userId = user.uid; 
+    var db = firebase.firestore();
+    db.collection("users").doc(userId).get().then(function(doc) {
+      if (doc.exists) {
+        var userFirstName = doc.data().firstName;
+        document.getElementById("welcome-message").innerHTML = "Welcome, " + userFirstName + "!";
+      } else {
+        console.log("No user document found!");
+      }
+    }).catch(function(error) {
+      console.error("Error getting user data: ", error);
+    });
+  } else {
+    console.log("No user is logged in.");
+  }
+}
+
