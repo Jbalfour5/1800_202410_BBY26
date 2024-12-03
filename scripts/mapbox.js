@@ -198,7 +198,7 @@ function addPostMarkersToMap() {
                         <p><strong>Location:</strong> ${address}</p>
                         <p><strong>Priority:</strong> ${priority}</p>
                         <div style="text-align: center;">
-                            <a href="postDetails.html?id=${doc.id}" class="btn btn-primary">View Post</a>
+                            <a href="postDetails.html?id=${doc.id}" class="btn btn-success">View Post</a>
                         </div>
                     `);
                 marker.setPopup(popup);
