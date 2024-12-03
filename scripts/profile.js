@@ -211,3 +211,138 @@ function displayPosts() {
 
 //Triggers the displayPosts function once the DOM content has fully loaded
 window.addEventListener('DOMContentLoaded', displayPosts); 
+
+
+
+
+
+
+
+
+
+
+
+
+let reportIdToDelete;
+
+function displayUserReports() {
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            const userId = user.uid;
+            const reportContainer = document.querySelector('#reportContainer');
+            db.collection("reports")
+                .where("userID", "==", userId)
+                .get()
+                .then((querySnapshot) => {
+                    reportContainer.innerHTML = ''; // Clear any existing content
+                    querySnapshot.forEach((doc) => {
+                        const reportData = doc.data();
+                        const reportId = doc.id;
+
+                        // Create a Bootstrap card for each report
+                        const card = document.createElement('div');
+                        card.className = 'card mb-4 col-md-6';
+
+                        const cardBody = document.createElement('div');
+                        cardBody.className = 'card-body';
+
+                        const cardTitle = document.createElement('h5');
+                        cardTitle.className = 'card-title';
+                        cardTitle.textContent = reportData.title;
+
+                        const cardRating = document.createElement('p');
+                        cardRating.textContent = `Rating: ${reportData.rating}/5`;
+
+                        const cardComments = document.createElement('p');
+                        cardComments.textContent = `Comments: ${reportData.commentsFeedback}`;
+
+                        const cardDate = document.createElement('p');
+                        const date = reportData.timestamp ? reportData.timestamp.toDate().toLocaleString() : 'Date not available';
+                        cardDate.textContent = `Date: ${date}`;
+
+                        const cardFooter = document.createElement('div');
+                        cardFooter.className = 'card-footer text-center';
+
+                        const viewMoreButton = document.createElement('a');
+                        viewMoreButton.className = 'btn btn-success';
+                        viewMoreButton.textContent = 'Read More';
+                        viewMoreButton.href = `reportDetails.html?id=${reportId}&ref=profile`;
+
+                        const deleteButton = document.createElement('button');
+                        deleteButton.className = 'btn btn-danger ms-2';
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.dataset.reportId = reportId;
+                        deleteButton.dataset.bsToggle = 'modal';
+                        deleteButton.dataset.bsTarget = '#deleteModal';
+
+                        // Set up event listener for delete button
+                        deleteButton.addEventListener('click', function () {
+                            reportIdToDelete = reportId;
+                        });
+
+                        cardFooter.appendChild(viewMoreButton);
+                        cardFooter.appendChild(deleteButton);
+
+                        cardBody.appendChild(cardTitle);
+                        cardBody.appendChild(cardRating);
+                        cardBody.appendChild(cardComments);
+                        cardBody.appendChild(cardDate);
+
+                        card.appendChild(cardBody);
+                        card.appendChild(cardFooter);
+
+                        reportContainer.appendChild(card);
+                    });
+
+                    // Set up the delete confirmation button
+                    document.getElementById('confirmDeleteButton').addEventListener('click', function () {
+                        if (reportIdToDelete) {
+                            db.collection("reports").doc(reportIdToDelete).delete().then(() => {
+                                console.log("Report successfully deleted!");
+                                displayUserReports(); // Refresh the reports after deletion
+
+                                // Hide the modal programmatically
+                                var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
+                                deleteModal.hide();
+
+                                // Reset the global variable
+                                reportIdToDelete = null;
+                            }).catch((error) => {
+                                console.error("Error removing report: ", error);
+                            });
+                        }
+                    });
+                })
+                .catch((error) => {
+                    console.log("Error getting documents: ", error);
+                });
+        } else {
+            console.log("No user is signed in.");
+        }
+    });
+}
+
+// Call the function to display reports
+displayUserReports();
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
