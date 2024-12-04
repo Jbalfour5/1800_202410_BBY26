@@ -85,10 +85,10 @@ function displayPosts(loadMore = false) {
 
         // Check if createdAt is a Firestore Timestamp and convert it
         if (postData.createdAt instanceof firebase.firestore.Timestamp) {
-          const createdAtDate = postData.createdAt.toDate();  // Convert Timestamp to Date object
-          createdAtText.textContent = ` on ${createdAtDate.toLocaleString()}`;  // Format the Date object
+          const createdAtDate = postData.createdAt.toDate();  
+          createdAtText.textContent = ` on ${createdAtDate.toLocaleString()}`;  
         } else {
-          createdAtText.textContent = ` on ${postData.createdAt}`;  // Fallback for other data types (if any)
+          createdAtText.textContent = ` on ${postData.createdAt}`; 
         }
         creatorName.appendChild(createdAtText);
 

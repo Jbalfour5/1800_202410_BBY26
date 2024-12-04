@@ -94,34 +94,16 @@ function saveUserInfo() {
  * This function also sets up event listeners for the like and dislike buttons to handle user reactions.
  * 
  */
-function displayPosts(loadMore = false) {
-    const postContainer = document.querySelector('.postContainer');
-    if (!loadMore) {
-        postContainer.innerHTML = '';
-        lastVisible = null;
-    }
+function displayPosts() {
     firebase.auth().onAuthStateChanged(user => {
+        console.log("Logged-in user ID: ", user.uid);
         if (user) {
+            const postContainer = document.querySelector('.postContainer');
             const userId = user.uid;
             let query = db.collection("posts")
                 .where("creatorID", "==", userId)
-                .orderBy("createdAt", "desc")
-                .limit(POSTS_PER_PAGE);
-
-            if (lastVisible) {
-                query = query.startAfter(lastVisible);
-            }
-
             query.get()
                 .then((querySnapshot) => {
-                    if (querySnapshot.empty) {
-                        const loadMoreButton = document.getElementById('loadMoreButton');
-                        if (loadMoreButton) loadMoreButton.style.display = 'none';
-                        return;
-                    }
-
-                    lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-
                     const row = document.createElement('div');
                     row.className = 'row g-4 mt-4';
 
@@ -162,6 +144,13 @@ function displayPosts(loadMore = false) {
                         } else {
                             createdAtText.textContent = `Created on: ${postData.createdAt}`;
                         }
+
+                        const creatorName = document.createElement('p');
+                        creatorName.className = 'text-muted small text-center mt-2';
+                        creatorName.textContent = `Posted by: ${postData.createdBy || "Anonymous"}`;
+
+                      
+
 
                         const viewMoreButton = document.createElement('a');
                         viewMoreButton.className = 'btn btn-success w-100';
@@ -225,7 +214,10 @@ function displayPosts(loadMore = false) {
                         cardBody.appendChild(viewMoreButton);
                         cardBody.appendChild(reactionContainer);
                         cardBody.appendChild(addressText);
-                        cardBody.appendChild(createdAtText);
+                        cardBody.appendChild(creatorName);
+                        creatorName.appendChild(createdAtText);
+                          
+                       
 
                         card.appendChild(img);
                         card.appendChild(cardBody);
@@ -233,7 +225,6 @@ function displayPosts(loadMore = false) {
                         col.appendChild(card);
                         row.appendChild(col);
                     });
-
                     postContainer.appendChild(row);
                 })
                 .catch((error) => {
@@ -247,15 +238,6 @@ function displayPosts(loadMore = false) {
 
 // Ensure the displayPosts function runs after DOM is loaded
 window.addEventListener('DOMContentLoaded', () => displayPosts());
-
-
-
-
-
-
-
-
-
 
 
 let reportIdToDelete;
