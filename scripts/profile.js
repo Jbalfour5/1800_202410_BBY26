@@ -81,7 +81,7 @@ function saveUserInfo() {
  * Fetches and displays posts from the Firebase firestore database.
  * 
  * This function retrieves the posts from the 'posts' collection within Firestore, 
- * orders them by creation date in descending order (newest-oldest)
+ * orders them by creation date in descending order as long as the user id matches the logged in user (newest-oldest)
  * and dynamically generates bootstrap cards to display each post.
  * The bootstrap cards contain a:
  *  - title
@@ -216,9 +216,7 @@ function displayPosts() {
                         cardBody.appendChild(addressText);
                         cardBody.appendChild(creatorName);
                         creatorName.appendChild(createdAtText);
-                          
-                       
-
+                        
                         card.appendChild(img);
                         card.appendChild(cardBody);
 
@@ -236,7 +234,7 @@ function displayPosts() {
     });
 }
 
-// Ensure the displayPosts function runs after DOM is loaded
+// Ensures the displayPosts function runs after DOM is loaded
 window.addEventListener('DOMContentLoaded', () => displayPosts());
 
 
@@ -251,12 +249,12 @@ function displayUserReports() {
                 .where("userID", "==", userId)
                 .get()
                 .then((querySnapshot) => {
-                    reportContainer.innerHTML = ''; // Clear any existing content
+                    reportContainer.innerHTML = ''; // Clears any existing content
                     querySnapshot.forEach((doc) => {
                         const reportData = doc.data();
                         const reportId = doc.id;
 
-                        // Create a Bootstrap card for each report
+                        // Creates a Bootstrap card for each report
                         const card = document.createElement('div');
                         card.className = 'card mb-4 col-md-6';
 
@@ -292,7 +290,7 @@ function displayUserReports() {
                         deleteButton.dataset.bsToggle = 'modal';
                         deleteButton.dataset.bsTarget = '#deleteModal';
 
-                        // Set up event listener for delete button
+                        // Sets up event listener for delete button
                         deleteButton.addEventListener('click', function () {
                             reportIdToDelete = reportId;
                         });
@@ -311,18 +309,18 @@ function displayUserReports() {
                         reportContainer.appendChild(card);
                     });
 
-                    // Set up the delete confirmation button
+                    // Sets up the delete confirmation button
                     document.getElementById('confirmDeleteButton').addEventListener('click', function () {
                         if (reportIdToDelete) {
                             db.collection("reports").doc(reportIdToDelete).delete().then(() => {
                                 console.log("Report successfully deleted!");
                                 displayUserReports(); // Refresh the reports after deletion
 
-                                // Hide the modal programmatically
+                                // Hides the modal programmatically
                                 var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
                                 deleteModal.hide();
 
-                                // Reset the global variable
+                                // Resets the global variable
                                 reportIdToDelete = null;
                             }).catch((error) => {
                                 console.error("Error removing report: ", error);
@@ -339,7 +337,7 @@ function displayUserReports() {
     });
 }
 
-// Call the function to display reports
+// Calls the function to display reports
 displayUserReports();
 
 

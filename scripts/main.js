@@ -18,13 +18,20 @@
 let lastVisible = null; // Tracks the last document fetched
 const POSTS_PER_PAGE = 3; // Number of posts to load per page
 
+/**
+ * Displays posts from the Firestore database in the post container.
+ * 
+ * This function retrieves and displays a set number of posts in the order of their creation date.
+ * It supports pagination and dynamically creates Bootstrap cards for each post.
+ * 
+ * @param {boolean} loadMore - Determines if additional posts are being loaded (true) or the display is reset (false).
+ */
 function displayPosts(loadMore = false) {
   const postContainer = document.querySelector('.postContainer');
   if (!loadMore) {
     postContainer.innerHTML = '';
     lastVisible = null;
   }
-
   // Query Firestore with pagination
   let query = db.collection("posts")
     .orderBy("createdAt", "desc")
@@ -85,10 +92,10 @@ function displayPosts(loadMore = false) {
 
         // Check if createdAt is a Firestore Timestamp and convert it
         if (postData.createdAt instanceof firebase.firestore.Timestamp) {
-          const createdAtDate = postData.createdAt.toDate();  
-          createdAtText.textContent = ` on ${createdAtDate.toLocaleString()}`;  
+          const createdAtDate = postData.createdAt.toDate();
+          createdAtText.textContent = ` on ${createdAtDate.toLocaleString()}`;
         } else {
-          createdAtText.textContent = ` on ${postData.createdAt}`; 
+          createdAtText.textContent = ` on ${postData.createdAt}`;
         }
         creatorName.appendChild(createdAtText);
 
@@ -140,7 +147,7 @@ function displayPosts(loadMore = false) {
           }
         };
 
-        
+
         updateReliabilityText();
 
         likeButton.addEventListener('click', () => {
@@ -174,7 +181,7 @@ function displayPosts(loadMore = false) {
         row.appendChild(col);
       });
 
-      
+
 
       postContainer.appendChild(row);
     })
@@ -183,7 +190,11 @@ function displayPosts(loadMore = false) {
     });
 }
 
-// Add "Load More" button functionality
+/**
+ * Adds click event listeners for the "Load More" button.
+ * 
+ * This function ensures that additional posts are loaded when the user clicks the button.
+ */
 document.getElementById('loadMoreButton').addEventListener('click', () => {
   displayPosts(true);
 });
@@ -262,7 +273,6 @@ async function updateReaction(postId, reaction, likeButton, dislikeButton, likeC
       dislikesChange = -1;
 
     } else if (currentLikeReaction === "liked") {
-      // User switches from like to dislike
       dislikeButton.dataset.reaction = "disliked";
       likeButton.dataset.reaction = "none";
       likesChange = -1;
@@ -293,14 +303,20 @@ async function updateReaction(postId, reaction, likeButton, dislikeButton, likeC
 let reportIDToDelete = null;
 let deleteModal = null;
 
+/**
+ * Fetches and displays user reports from the Firestore database.
+ * 
+ * This function retrieves reports in descending order of their timestamps,
+ * fetches associated user details, and dynamically generates Bootstrap cards to display the reports.
+ */
 function displayReports() {
   const reportContainer = document.getElementById('reportContainer');
-  reportContainer.innerHTML = ''; // Clear previous content
+  reportContainer.innerHTML = '';
 
   console.log("Fetching reports from Firestore...");
 
   db.collection("reports")
-    .orderBy("timestamp", "desc") // Order by timestamp in descending order
+    .orderBy("timestamp", "desc")
     .get()
     .then((querySnapshot) => {
       console.log("Reports fetched:", querySnapshot.size);
@@ -309,7 +325,6 @@ function displayReports() {
         const reportData = doc.data();
         console.log("Report Data:", reportData);
 
-        // Fetch user details
         db.collection("users").doc(reportData.userID).get().then((userDoc) => {
           if (userDoc.exists) {
             const userData = userDoc.data();
@@ -422,7 +437,7 @@ function filterReportsByDate() {
   const startDate = document.getElementById('startDate').value;
   const endDate = document.getElementById('endDate').value;
   const reportContainer = document.getElementById('reportContainer');
-  reportContainer.innerHTML = ''; // Clear previous content
+  reportContainer.innerHTML = ''; 
 
   db.collection("reports")
     .where("timestamp", ">=", new Date(startDate))
@@ -432,7 +447,6 @@ function filterReportsByDate() {
       querySnapshot.forEach((doc) => {
         const reportData = doc.data();
 
-        // Create a Bootstrap card for each report
         const card = document.createElement('div');
         card.className = 'card mb-4 col-md-4';
 
@@ -470,10 +484,22 @@ function filterReportsByDate() {
     });
 }
 
+/**
+ * Initializes and manages the filter button slider functionality.
+ * 
+ * This script adjusts a visual slider to align with the active filter button when a new filter is selected. 
+ * It calculates the size and position of the active button and updates the slider's width and position dynamically.
+ * 
+ * Functionality:
+ * - Listens for changes to filter buttons (radio inputs).
+ * - Dynamically positions the slider to align with the active filter button.
+ * - Adjusts on page load and when the user selects a different filter.
+ * 
+ * @listens DOMContentLoaded - Executes the slider initialization once the DOM is fully loaded.
+ */
 document.addEventListener('DOMContentLoaded', function () {
   const filterButtons = document.querySelectorAll('#filterButtons label');
   const slider = document.getElementById('slider');
-
 
   function updateSliderPosition() {
     const activeButton = document.querySelector('#filterButtons input[type="radio"]:checked');
@@ -482,17 +508,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const buttonWidth = activeLabel.offsetWidth;
     const buttonLeft = activeLabel.getBoundingClientRect().left;
 
-
     slider.style.width = `${buttonWidth}px`;
-
-
     const containerLeft = document.getElementById('filterButtons').getBoundingClientRect().left;
-
 
     slider.style.left = `${buttonLeft - containerLeft}px`;
   }
-
-
   const radioButtons = document.querySelectorAll('#filterButtons input[type="radio"]');
   radioButtons.forEach(radio => {
     radio.addEventListener('change', updateSliderPosition);
@@ -554,7 +574,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const loadMore = this.getElementById("loadMoreButton");
   const backToTopText = this.getElementById("backToTop");
 
-  
+
   option1.addEventListener("change", function () {
     createReportDiv.style.display = "none";  // Hide Create Report
     createPostDiv.style.display = "block";   // Show Create Post
@@ -578,7 +598,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     displayGreeting(user);
   } else {
@@ -586,18 +606,27 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
+/**
+ * Displays a personalized greeting message for the logged-in user.
+ * 
+ * This function retrieves the user's first name from the Firestore database using their unique user ID (UID).
+ * If the user data is successfully retrieved, a welcome message is displayed in the "welcome-message" element.
+ * 
+ * @param {Object} user - The currently logged-in Firebase user object. 
+ *                        Contains the unique user ID (UID) used to query Firestore.
+ */
 function displayGreeting(user) {
   if (user) {
-    var userId = user.uid; 
+    var userId = user.uid;
     var db = firebase.firestore();
-    db.collection("users").doc(userId).get().then(function(doc) {
+    db.collection("users").doc(userId).get().then(function (doc) {
       if (doc.exists) {
         var userFirstName = doc.data().firstName;
         document.getElementById("welcome-message").innerHTML = "Welcome, " + userFirstName + "!";
       } else {
         console.log("No user document found!");
       }
-    }).catch(function(error) {
+    }).catch(function (error) {
       console.error("Error getting user data: ", error);
     });
   } else {
