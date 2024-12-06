@@ -237,7 +237,14 @@ function displayPosts() {
 // Ensures the displayPosts function runs after DOM is loaded
 window.addEventListener('DOMContentLoaded', () => displayPosts());
 
-
+/**
+ * 
+ * Function: displayUserReports
+ * Description: Fetches and displays the authenticated user's reports on the profile page 
+ * as Bootstrap cards, with options to view details or delete reports
+ * from the "reports" collection in the Firebase Firestore database. 
+ * Includes functionality for viewing more details and deleting reports.
+ */
 let reportIdToDelete;
 
 function displayUserReports() {
@@ -249,7 +256,11 @@ function displayUserReports() {
                 .where("userID", "==", userId)
                 .get()
                 .then((querySnapshot) => {
+<<<<<<< HEAD
                     reportContainer.innerHTML = ''; // Clears any existing content
+=======
+                    reportContainer.innerHTML = ''; 
+>>>>>>> 4cdc7a9f3778ea34dca48330d215a43a29905074
                     querySnapshot.forEach((doc) => {
                         const reportData = doc.data();
                         const reportId = doc.id;
